@@ -155,7 +155,7 @@
                         android:layout_marginTop="40dp"
                         android:drawableTop="@mipmap/ic_action_name"
                         android:drawablePadding="16dp"
-                        android:text="欢迎登录号号租号"
+                        android:text="欢迎登录租号号"
                         android:textColor="#474749"
                         android:textSize="18sp"
                         app:layout_constraintEnd_toEndOf="parent"

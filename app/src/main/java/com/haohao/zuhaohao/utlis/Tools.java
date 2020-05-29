@@ -16,17 +16,20 @@ import android.provider.Settings;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+
+import androidx.appcompat.app.AlertDialog;
 
 import com.blankj.utilcode.util.ObjectUtils;
 import com.blankj.utilcode.util.SDCardUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.blankj.utilcode.util.Utils;
+import com.haohao.zuhaohao.AppConfig;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
-import com.haohao.zuhaohao.AppConfig;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -40,7 +43,6 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import androidx.appcompat.app.AlertDialog;
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.ShareSDK;
@@ -399,6 +401,7 @@ public class Tools {
 
     //调用微信支付
     public static void weChatPay(Context context, String payCode) {
+        Log.e("TAG", "payCode = " + payCode);
         String tempPayJson = payCode.replace("\\", "");
         try {
             JSONObject jsonObject = new JSONObject(tempPayJson);
@@ -411,9 +414,16 @@ public class Tools {
             payReq.packageValue = (String) jsonObject.get("package");
             payReq.sign = (String) jsonObject.get("sign");
             payReq.partnerId = (String) jsonObject.get("partnerid");
-            payReq.prepayId = (String) jsonObject.get("prepayid");
-            payReq.nonceStr = (String) jsonObject.get("noncestr");
+            payReq.prepayId = (String) jsonObject.get("prepay_id");
+            payReq.nonceStr = (String) jsonObject.get("nonce_str");
             payReq.timeStamp = (String) jsonObject.get("timestamp");
+            Log.e("TAG", "payReq.appId = " + payReq.appId);
+            Log.e("TAG", "payReq.packageValue = " + payReq.packageValue);
+            Log.e("TAG", "payReq.sign = " + payReq.sign);
+            Log.e("TAG", "payReq.partnerId = " + payReq.partnerId);
+            Log.e("TAG", "payReq.prepayId = " + payReq.prepayId);
+            Log.e("TAG", "payReq.nonceStr = " + payReq.nonceStr);
+            Log.e("TAG", "payReq.timeStamp = " + payReq.timeStamp);
             api.sendReq(payReq);
         } catch (JSONException e) {
             e.printStackTrace();

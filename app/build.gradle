@@ -72,31 +72,11 @@ android {
   //  渠道Flavors
     productFlavors {
 
-        xubei_android {
+        zuhaobao {
             dimension "channel"
         }
 
-        APP_yimi {
-            dimension "channel"
-        }
-
-        xiaomi {
-            dimension "channel"
-        }
-
-        vivo {
-            dimension "channel"
-        }
-
-        yingyongbao {
-            dimension "channel"
-        }
-
-        huawei {
-            dimension "channel"
-        }
-
-        Android_wangxia {
+        zuhaohao {
             dimension "channel"
         }
     }
@@ -213,14 +193,14 @@ MobSDK {
         devInfo {
             Wechat {
                 sortId 2
-                appId "wxcbd032341f7648c3"
+                appId "ww640a72de700325b4"
                 appSecret "87d9a5b91f1302adc4a3851ef720b41c"
                 shareByAppClient true
                 bypassApproval false
             }
             WechatMoments {
                 sortId 1
-                appId "wxcbd032341f7648c3"
+                appId "ww640a72de700325b4"
                 appKey "87d9a5b91f1302adc4a3851ef720b41c"
                 shareByAppClient true
                 bypassApproval false

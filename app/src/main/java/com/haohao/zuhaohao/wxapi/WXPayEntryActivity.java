@@ -3,6 +3,7 @@ package com.haohao.zuhaohao.wxapi;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.blankj.utilcode.util.ObjectUtils;
 import com.blankj.utilcode.util.ToastUtils;
@@ -50,6 +51,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
     @Override
     public void onResp(BaseResp resp) {
         String result = null;
+        Log.e("TAG","resp.errCode = "+resp.errCode);
         switch (resp.errCode) {
             case BaseResp.ErrCode.ERR_OK:
                 RxBus.get().post(AppConstants.RxBusAction.TAG_WX_PAY, true);

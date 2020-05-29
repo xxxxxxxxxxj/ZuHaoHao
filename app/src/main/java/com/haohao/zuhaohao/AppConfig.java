@@ -97,6 +97,9 @@ public class AppConfig {
     //临时存储
     private static String APP_ID = "";
 
+    //阿里云客服链接
+    public static String CSCHAT_URL = "https://cschat-ccs.aliyun.com/index.htm?tntInstId=_1KlnA7c&scene=SCE00004697#/";
+
     public static String getAppId() {
         return APP_ID;
     }

@@ -223,19 +223,9 @@ public class AppConstants {
 
         public static String getChannelNo(String channelValue) {
             switch (channelValue) {
-                case "xubei_android":       //号号主站
-                    return "0";
-                case "APP_yimi":            //推广渠道(薏米)
-                    return "1";
-                case "xiaomi":              //推广渠道(小米)
-                    return "2";
-                case "vivo":                //推广渠道（vivo）
-                    return "3";
-                case "yingyongbao":         //推广渠道(应用宝)
-                    return "4";
-                case "huawei":              //推广渠道（华为）
+                case "zuhaobao":       //号号主站
                     return "5";
-                case "Android_wangxia":     //推广渠道（网侠）
+                case "zuhaohao":            //推广渠道(薏米)
                     return "6";
                 default:
                     return "";

@@ -77,7 +77,7 @@ public class ResetPasswordActivity extends ABaseActivity<ResetPasswordContract.P
                 binding.etPhone.setText("");
                 break;
             case R.id.tv_get_code://获取验证码
-                getCode();
+                gotoVerifyFullScreenActivity("");
                 break;
             case R.id.btn_ok:
                 //提交网络

@@ -200,7 +200,11 @@ public class MainHome extends ABaseFragment<MainHomeContract.Presenter> implemen
                 ARouter.getInstance().build(AppConstants.PagePath.ACC_SEARCH).navigation();
                 break;
             case R.id.iv_customer_service://客服
-                Tools.startQQCustomerService(getContext(), AppConfig.SERVICE_QQ);
+                ARouter.getInstance().build(AppConstants.PagePath.COMM_AGENTWEB)
+                        .withString("title", "联系客服")
+                        .withString("webUrl", AppConfig.CSCHAT_URL)
+                        .navigation();
+                //Tools.startQQCustomerService(getContext(), AppConfig.SERVICE_QQ);
                 break;
         }
     }

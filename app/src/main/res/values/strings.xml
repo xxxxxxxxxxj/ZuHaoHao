@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">租号号</string>
-    <string name="accessibility_tip">号号租号</string>
-    <string name="accessibility_desc">号号租号自动辅助上号</string>
+    <string name="accessibility_tip">租号号</string>
+    <string name="accessibility_desc">租号号自动辅助上号</string>
     <string name="str_pay_success">1.支付完成后，请到http://www.xubei.com/download.html下载号号专用上号器进行登录游戏。
     \n2.不知道上号请点击\"查看上号步骤\"或者联系客服帮助上号。
     \n3.如遇到账号密码错误请及时售后维权。</string>

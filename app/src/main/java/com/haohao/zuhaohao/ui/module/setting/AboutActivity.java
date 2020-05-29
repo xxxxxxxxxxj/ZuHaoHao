@@ -36,7 +36,7 @@ public class AboutActivity extends ABaseActivity<IABaseContract.ABasePresenter> 
 
     @Override
     public void initCreate(@Nullable Bundle savedInstanceState) {
-        binding.appbar.toolbar.setTitle("关于号号租号");
+        binding.appbar.toolbar.setTitle("关于租号号");
     }
 
 }

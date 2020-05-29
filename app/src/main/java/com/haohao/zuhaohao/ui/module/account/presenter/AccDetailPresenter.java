@@ -233,7 +233,7 @@ public class AccDetailPresenter extends AccDetailContract.Presenter {
             tempPicture = outGoodsDetailBean.picture.get(0).location;
         }
         Tools.showShare(platform,
-                "号号租号-专业便捷的租号平台！",
+                "租号号-专业便捷的租号平台！",
                 outGoodsDetailBean.goodsTitle,
                 outGoodsDetailBean.id,
                 tempPicture,
