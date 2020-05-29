@@ -16,6 +16,7 @@
     <!--FloatingActionButton的margin-->
 
     <dimen name="def_refresh_h">60dp</dimen>
+    <dimen name="horizontalSpacing10">10dip</dimen>
 
     <!--账号发布元素行高-->
     <dimen name="act_account_release_item_h">48dp</dimen>

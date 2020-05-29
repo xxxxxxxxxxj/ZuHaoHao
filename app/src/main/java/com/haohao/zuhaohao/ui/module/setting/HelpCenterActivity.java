@@ -4,9 +4,12 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 
+import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.GridLayoutManager;
+
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.jakewharton.rxbinding2.support.v7.widget.RxToolbar;
 import com.haohao.zuhaohao.AppConfig;
 import com.haohao.zuhaohao.AppConstants;
 import com.haohao.zuhaohao.R;
@@ -16,13 +19,9 @@ import com.haohao.zuhaohao.ui.module.setting.adapter.HelpCenterAdapter;
 import com.haohao.zuhaohao.ui.module.setting.contract.HelpCenterContract;
 import com.haohao.zuhaohao.ui.module.setting.model.ProblemBean;
 import com.haohao.zuhaohao.ui.module.setting.presenter.HelpCenterPresenter;
-import com.haohao.zuhaohao.utlis.Tools;
+import com.jakewharton.rxbinding2.support.v7.widget.RxToolbar;
 
 import javax.inject.Inject;
-
-import androidx.annotation.Nullable;
-import androidx.databinding.DataBindingUtil;
-import androidx.recyclerview.widget.GridLayoutManager;
 
 /**
  * 帮助中心
@@ -67,7 +66,11 @@ public class HelpCenterActivity extends ABaseActivity<HelpCenterContract.Present
                     .withSerializable("bean", bean)
                     .navigation();
         });
-        RxToolbar.itemClicks(binding.appbar.toolbar).as(bindLifecycle()).subscribe(menuItem -> Tools.startQQCustomerService(this, AppConfig.SERVICE_QQ));
+        RxToolbar.itemClicks(binding.appbar.toolbar).as(bindLifecycle()).subscribe(menuItem ->
+                ARouter.getInstance().build(AppConstants.PagePath.COMM_AGENTWEB)
+                        .withString("title", "联系客服")
+                        .withString("webUrl", AppConfig.CSCHAT_URL)
+                        .navigation());
     }
 
     public void onViewClicked(View view) {

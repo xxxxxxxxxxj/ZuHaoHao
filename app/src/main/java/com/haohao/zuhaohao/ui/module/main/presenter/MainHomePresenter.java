@@ -49,6 +49,7 @@ public class MainHomePresenter extends MainHomeContract.Presenter {
     private List<BaseDataCms<BannerBean>> bannerList;
     private List<BaseDataCms<AccBean>> hotList;
     private List<BaseDataCms<WelfareBean>> welfareList;
+    private List<BaseDataCms<GameBean>> hotRentList;
 
     @Override
     public void start() {
@@ -114,15 +115,24 @@ public class MainHomePresenter extends MainHomeContract.Presenter {
 
     }
 
+    //首页banner点击
+    public void doHotRetnClick(int position) {
+        BaseDataCms<GameBean> gameBeanBaseDataCms = hotRentList.get(position);
+        //游戏列表
+        ARouter.getInstance().build(AppConstants.PagePath.ACC_LIST).withSerializable("bean", gameBeanBaseDataCms.properties).navigation();
+    }
+
 
     //数据重构
-    private List<HomeMultipleItem> refactorData(List<BaseDataCms<BannerBean>> cmsBannerList, /*List<GameTypeBean> gameTypeList,*/ List<BaseDataCms<AccBean>> cmsAccList, List<BaseDataCms<WelfareBean>> cmsWelfareList) {
+    private List<HomeMultipleItem> refactorData(List<BaseDataCms<BannerBean>> cmsBannerList, /*List<GameTypeBean> gameTypeList,*/ List<BaseDataCms<AccBean>> cmsAccList, List<BaseDataCms<WelfareBean>> cmsWelfareList, List<BaseDataCms<GameBean>> cmsHotRentList) {
         //banner
         bannerList = cmsBannerList;
         //热销
         hotList = cmsAccList;
         //福利中心
         welfareList = cmsWelfareList;
+        //热门租号
+        hotRentList = cmsHotRentList;
         // 进行转换（游戏）
         List<HomeMultipleItem> list = new ArrayList<>();/*
         //添加游戏类型
@@ -173,19 +183,25 @@ public class MainHomePresenter extends MainHomeContract.Presenter {
                 .compose(RxSchedulers.io_main_business());
     }
 
+    //热门租号
+    private Flowable<BaseData<BaseDataCms<GameBean>>> doHotRent() {
+        return api8Service.getHotRent()
+                .compose(RxSchedulers.io_main_business());
+    }
+
 
     //获取游戏列表
     private void doGamesList() {
-        Flowable.combineLatest(doBanner(), /*doAllGame(),*/ doHotList(), doWelfare(),
-                (cmsBannerList, /*gameTypeList,*/ cmshotList, cmsWelfareList) ->
-                        refactorData(cmsBannerList.datas, /*gameTypeList,*/ cmshotList.datas, cmsWelfareList.datas)
+        Flowable.combineLatest(doBanner(), /*doAllGame(),*/ doHotList(), doWelfare(), doHotRent(),
+                (cmsBannerList, /*gameTypeList,*/ cmshotList, cmsWelfareList, cmsHotRentList) ->
+                        refactorData(cmsBannerList.datas, /*gameTypeList,*/ cmshotList.datas, cmsWelfareList.datas, cmsHotRentList.datas)
         ).doOnSubscribe(subscription -> mView.setNoData(NoDataView.LOADING))
                 .as(mView.bindLifecycle())
                 .subscribe(new ABaseSubscriber<List<HomeMultipleItem>>(mView) {
                     @Override
                     public void onSuccess(List<HomeMultipleItem> list) {
                         allList = list;
-                        mView.setGameList(bannerList, allList, hotList, welfareList);
+                        mView.setGameList(bannerList, allList, hotList, welfareList, hotRentList);
                         mView.setNoData(NoDataView.LOADING_OK);
                     }
 

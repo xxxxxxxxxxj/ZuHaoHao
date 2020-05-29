@@ -95,7 +95,10 @@ public class OrderDetailActivity extends ABaseActivity<OrderDetailContract.Prese
                 presenter.doAccClick();
                 break;
             case R.id.ll_kf://联系客服
-                Tools.startQQCustomerService(this, AppConfig.SERVICE_QQ);
+                ARouter.getInstance().build(AppConstants.PagePath.COMM_AGENTWEB)
+                        .withString("title", "联系客服")
+                        .withString("webUrl", AppConfig.CSCHAT_URL)
+                        .navigation();
                 break;
         }
 

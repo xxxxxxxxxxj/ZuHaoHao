@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -19,23 +21,27 @@ import com.haohao.zuhaohao.AppConstants;
 import com.haohao.zuhaohao.R;
 import com.haohao.zuhaohao.databinding.ActMainHomeBinding;
 import com.haohao.zuhaohao.ui.module.account.model.AccBean;
+import com.haohao.zuhaohao.ui.module.account.model.GameBean;
 import com.haohao.zuhaohao.ui.module.base.ABaseFragment;
 import com.haohao.zuhaohao.ui.module.base.BaseDataCms;
 import com.haohao.zuhaohao.ui.module.main.adapter.HomeBannerAdapter;
 import com.haohao.zuhaohao.ui.module.main.adapter.HomeGameAdapter;
 import com.haohao.zuhaohao.ui.module.main.adapter.HomeHotAdapter;
+import com.haohao.zuhaohao.ui.module.main.adapter.HomeHotRentAdapter;
 import com.haohao.zuhaohao.ui.module.main.adapter.HomeWelfareAdapter;
 import com.haohao.zuhaohao.ui.module.main.contract.MainHomeContract;
 import com.haohao.zuhaohao.ui.module.main.model.BannerBean;
 import com.haohao.zuhaohao.ui.module.main.model.HomeMultipleItem;
 import com.haohao.zuhaohao.ui.module.main.model.WelfareBean;
 import com.haohao.zuhaohao.ui.module.main.presenter.MainHomePresenter;
+import com.haohao.zuhaohao.ui.views.GridSpacingItemDecoration;
+import com.haohao.zuhaohao.ui.views.NoScollFullGridLayoutManager;
 import com.haohao.zuhaohao.utlis.GallerySnapHelper;
-import com.haohao.zuhaohao.utlis.Tools;
 import com.haohao.zuhaohao.utlis.myDividerItemDecoration;
 import com.tmall.ultraviewpager.UltraViewPager;
 import com.umeng.analytics.MobclickAgent;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -85,11 +91,37 @@ public class MainHome extends ABaseFragment<MainHomeContract.Presenter> implemen
     GallerySnapHelper mGalleryWelfareSnapHelper;
 
     @Inject
+    HomeHotRentAdapter mHomeHotRentAdapter;
+    private List<ABaseFragment> fragmentList = new ArrayList<ABaseFragment>();
+    private String[] strings = new String[]{"安卓", "苹果"};
+
+    @Inject
     public MainHome() {
     }
 
     @Override
     public void initCreate(@Nullable Bundle savedInstanceState) {
+        //tab分类
+        for (int i = 0; i < strings.length; i++) {
+            fragmentList.add(new MainHomeAccList(i));
+        }
+        MyAdapter fragmentAdater = new MyAdapter(getFragmentManager());
+        binding.viewpager.setAdapter(fragmentAdater);
+        binding.tabLayout.setupWithViewPager(binding.viewpager);
+        //热门租号
+        binding.rvMainhomeRmzh.setHasFixedSize(true);
+        binding.rvMainhomeRmzh.setNestedScrollingEnabled(false);
+        NoScollFullGridLayoutManager noScollFullGridLayoutManager = new
+                NoScollFullGridLayoutManager(binding.rvMainhomeRmzh, getActivity(), 5, GridLayoutManager.VERTICAL, false);
+        noScollFullGridLayoutManager.setScrollEnabled(false);
+        binding.rvMainhomeRmzh.setLayoutManager(noScollFullGridLayoutManager);
+        binding.rvMainhomeRmzh.setAdapter(mHomeHotRentAdapter);
+        binding.rvMainhomeRmzh.addItemDecoration(new GridSpacingItemDecoration(5,
+                getResources().getDimensionPixelSize(R.dimen.horizontalSpacing10),
+                getResources().getDimensionPixelSize(R.dimen.horizontalSpacing10),
+                true));
+        mHomeHotRentAdapter.setOnItemClickListener((adapter, view, position) -> presenter.doHotRetnClick(position));
+
         //banner
         initUltraViewPager(binding.uvpBanner, position -> presenter.doBannerClick(position));
         //game
@@ -134,7 +166,7 @@ public class MainHome extends ABaseFragment<MainHomeContract.Presenter> implemen
     public void setGameList(List<BaseDataCms<BannerBean>> bannerList,
                             List<HomeMultipleItem> list,
                             List<BaseDataCms<AccBean>> hotList,
-                            List<BaseDataCms<WelfareBean>> welfareList) {
+                            List<BaseDataCms<WelfareBean>> welfareList, List<BaseDataCms<GameBean>> hotRentList) {
         //第一个是banner
         bannerAdapter.repData(bannerList);
         binding.uvpBanner.refresh();
@@ -150,6 +182,11 @@ public class MainHome extends ABaseFragment<MainHomeContract.Presenter> implemen
             binding.tvWelfareTitle.setVisibility(View.VISIBLE);
             binding.rvWelfare.setVisibility(View.VISIBLE);
             welfareAdapter.replaceData(welfareList);
+        }
+        //热门租号
+        if (hotRentList != null && hotRentList.size() > 0) {
+            binding.llMainhomeRmzh.setVisibility(View.VISIBLE);
+            mHomeHotRentAdapter.replaceData(hotRentList);
         }
     }
 
@@ -204,10 +241,29 @@ public class MainHome extends ABaseFragment<MainHomeContract.Presenter> implemen
                         .withString("title", "联系客服")
                         .withString("webUrl", AppConfig.CSCHAT_URL)
                         .navigation();
-                //Tools.startQQCustomerService(getContext(), AppConfig.SERVICE_QQ);
                 break;
         }
     }
 
+    public class MyAdapter extends FragmentPagerAdapter {
+        public MyAdapter(FragmentManager fm) {
+            super(fm);
+        }
 
+        @Override
+        public int getCount() {
+            return strings.length;
+        }
+
+        @Override
+        public ABaseFragment getItem(int position) {
+            return fragmentList.get(position);
+        }
+
+        @Nullable
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return strings[position];
+        }
+    }
 }

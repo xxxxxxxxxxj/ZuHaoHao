@@ -5,6 +5,7 @@ import com.haohao.zuhaohao.ui.module.account.model.AccRSResultBean;
 import com.haohao.zuhaohao.ui.module.account.model.GameActivityBean;
 import com.haohao.zuhaohao.ui.module.account.model.GameAllAreaBean;
 import com.haohao.zuhaohao.ui.module.account.model.GameAreaBean;
+import com.haohao.zuhaohao.ui.module.account.model.GameBean;
 import com.haohao.zuhaohao.ui.module.account.model.GameConfigBean;
 import com.haohao.zuhaohao.ui.module.account.model.GameSearchRelationBean;
 import com.haohao.zuhaohao.ui.module.account.model.GoldBlBean;
@@ -65,6 +66,10 @@ public interface Api8Service {
     //福利中心
     @GET("fulu-page-cloud/anon/cms/getModDataByModId?modId=welfare_center")
     Flowable<BaseDataResponse<BaseData<BaseDataCms<WelfareBean>>>> getWelfareCenter();
+
+    //热门租号
+    @GET("fulu-page-cloud/anon/cms/getModDataByModId?modId=home_hot_zuhao")
+    Flowable<BaseDataResponse<BaseData<BaseDataCms<GameBean>>>> getHotRent();
 
     //免费试玩助力
     @GET("fulu-page-cloud/anon/cms/getModDataByModId?modId=fulu_share_mianfei_wenan")

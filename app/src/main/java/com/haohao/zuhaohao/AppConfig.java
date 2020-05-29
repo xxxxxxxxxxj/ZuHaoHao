@@ -76,9 +76,6 @@ public class AppConfig {
     //阿里云dns
     public static final String ACCOUNT_ID = "139243";
 
-    //客服qq
-    public static final String SERVICE_QQ = "800055370";
-
     //pc上号器下载地址
     public static final String PC_DOWNLOAD = "http://www.xubei.com/download.html";
 

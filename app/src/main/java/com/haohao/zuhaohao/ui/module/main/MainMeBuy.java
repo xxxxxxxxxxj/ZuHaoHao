@@ -5,12 +5,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
+
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.blankj.utilcode.util.ObjectUtils;
-import com.hwangjr.rxbus.RxBus;
-import com.hwangjr.rxbus.annotation.Subscribe;
-import com.hwangjr.rxbus.annotation.Tag;
-import com.umeng.analytics.MobclickAgent;
 import com.haohao.zuhaohao.AppConfig;
 import com.haohao.zuhaohao.AppConstants;
 import com.haohao.zuhaohao.R;
@@ -21,14 +20,14 @@ import com.haohao.zuhaohao.ui.module.base.ABaseFragment;
 import com.haohao.zuhaohao.ui.module.main.contract.MainMeBuySellContract;
 import com.haohao.zuhaohao.ui.module.main.presenter.MainMeBuySellPresenter;
 import com.haohao.zuhaohao.ui.module.user.model.AcctManageBean;
-import com.haohao.zuhaohao.utlis.Tools;
+import com.hwangjr.rxbus.RxBus;
+import com.hwangjr.rxbus.annotation.Subscribe;
+import com.hwangjr.rxbus.annotation.Tag;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.Locale;
 
 import javax.inject.Inject;
-
-import androidx.annotation.Nullable;
-import androidx.databinding.DataBindingUtil;
 
 
 /**
@@ -163,7 +162,10 @@ public class MainMeBuy extends ABaseFragment<MainMeBuySellContract.Presenter> im
                 ARouter.getInstance().build(AppConstants.PagePath.SETTING_HELPCENTER).navigation();
                 break;
             case R.id.tv_tool4://联系客服
-                Tools.startQQCustomerService(getContext(), AppConfig.SERVICE_QQ);
+                ARouter.getInstance().build(AppConstants.PagePath.COMM_AGENTWEB)
+                        .withString("title", "联系客服")
+                        .withString("webUrl", AppConfig.CSCHAT_URL)
+                        .navigation();
                 break;
             case R.id.tv_tool5://我的消息
                 ARouter.getInstance().build(AppConstants.PagePath.USER_MYMSG).navigation();

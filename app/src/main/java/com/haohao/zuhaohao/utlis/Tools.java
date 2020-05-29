@@ -47,7 +47,6 @@ import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
-import cn.sharesdk.wechat.friends.Wechat;
 
 /**
  * 通用工具类
@@ -442,10 +441,10 @@ public class Tools {
             oks.setPlatform(platformStr);
         }
         //网页跳转
-        String url = "http://m.xubei.com/#/goodsdetail?goodsId=" + id;
-        if (isFree) {
+        String url = "https://www.zuhaohao.com/list/goods-" + id + ".html";
+        /*if (isFree) {
             url = "http://list.xubei.com/goods_details?goodsId=" + id + "&isfree=true&spread=" + spread + "&channel=mfzq";
-        }
+        }*/
         //关闭sso授权
         oks.disableSSOWhenAuthorize();
         // title标题，微信、QQ和QQ空间等平台使用
@@ -463,7 +462,7 @@ public class Tools {
         oks.setSite(title);
         // siteUrl是分享此内容的网站地址，仅在QQ空间使用
         oks.setSiteUrl(url);
-        if (!isFree) {
+        /*if (!isFree) {
             //微信使用小程序
             oks.setShareContentCustomizeCallback((platform, paramsToShare) -> {
                 if (Wechat.NAME.equals(platform.getName())) {
@@ -472,7 +471,7 @@ public class Tools {
                     paramsToShare.setWxPath("/pages/product/product_detail/product_detail?goodsId=" + id);
                 }
             });
-        }
+        }*/
 
         // 启动分享GUI
         oks.show(context);

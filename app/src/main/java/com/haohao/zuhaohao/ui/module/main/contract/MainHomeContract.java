@@ -1,6 +1,7 @@
 package com.haohao.zuhaohao.ui.module.main.contract;
 
 import com.haohao.zuhaohao.ui.module.account.model.AccBean;
+import com.haohao.zuhaohao.ui.module.account.model.GameBean;
 import com.haohao.zuhaohao.ui.module.base.BaseDataCms;
 import com.haohao.zuhaohao.ui.module.base.IABaseContract;
 import com.haohao.zuhaohao.ui.module.main.model.BannerBean;
@@ -21,7 +22,7 @@ public interface MainHomeContract extends IABaseContract {
         void setGameList(List<BaseDataCms<BannerBean>> bannerList,
                          List<HomeMultipleItem> list,
                          List<BaseDataCms<AccBean>> hotList,
-                         List<BaseDataCms<WelfareBean>> welfareList);
+                         List<BaseDataCms<WelfareBean>> welfareList, List<BaseDataCms<GameBean>> hotRentList);
 
         void setNoData(int type);
     }

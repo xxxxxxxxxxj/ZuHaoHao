@@ -31,82 +31,126 @@
                 android:layout_height="match_parent"
                 tools:visibility="gone" />
 
-            <androidx.core.widget.NestedScrollView
+            <com.haohao.zuhaohao.ui.views.StickLayout
+                android:id="@+id/sl"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="13dip"
                     android:orientation="vertical">
 
-                    <LinearLayout
+                    <com.tmall.ultraviewpager.UltraViewPager
+                        android:id="@+id/uvp_banner"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <com.tmall.ultraviewpager.UltraViewPager
-                            android:id="@+id/uvp_banner"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            app:upv_ratio="2.46" />
-                    </LinearLayout>
-
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recyclerview"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="#ffffff"
-                        android:nestedScrollingEnabled="false"
-                        android:padding="8dp" />
-
-                    <TextView
-                        android:id="@+id/tv_hot_title"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="#ffffff"
-                        android:maxLines="1"
-                        android:padding="13dp"
-                        android:paddingTop="2dp"
-                        android:text="热销榜单"
-                        android:textColor="#111111"
-                        android:textSize="17sp"
-                        android:textStyle="bold"
-                        android:visibility="gone" />
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rv_hot"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="#ffffff"
-                        android:paddingBottom="5dp"
-                        android:visibility="gone" />
-
-                    <TextView
-                        android:id="@+id/tv_welfare_title"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="#ffffff"
-                        android:maxLines="1"
-                        android:padding="13dp"
-                        android:paddingTop="2dp"
-                        android:text="福利中心"
-                        android:textColor="#111111"
-                        android:textSize="17sp"
-                        android:textStyle="bold"
-                        android:visibility="gone" />
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rv_welfare"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="#ffffff"
-                        android:paddingBottom="8dp"
-                        android:visibility="gone" />
+                        android:layout_marginTop="4dp"
+                        app:upv_ratio="2.46" />
                 </LinearLayout>
-            </androidx.core.widget.NestedScrollView>
+
+
+                <LinearLayout
+                    android:id="@+id/ll_mainhome_rmzh"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dip"
+                        android:layout_marginBottom="15dip"
+                        android:text="热门租号"
+                        android:textColor="@color/black"
+                        android:textSize="17sp"
+                        android:textStyle="bold" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rv_mainhome_rmzh"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#ffffff"
+                    android:nestedScrollingEnabled="false"
+                    android:padding="8dp" />
+
+                <TextView
+                    android:id="@+id/tv_hot_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#ffffff"
+                    android:maxLines="1"
+                    android:padding="13dp"
+                    android:paddingTop="2dp"
+                    android:text="热销榜单"
+                    android:textColor="#111111"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_hot"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#ffffff"
+                    android:paddingBottom="5dp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/tv_welfare_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#ffffff"
+                    android:maxLines="1"
+                    android:padding="13dp"
+                    android:paddingTop="2dp"
+                    android:text="福利中心"
+                    android:textColor="#111111"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_welfare"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#ffffff"
+                    android:paddingBottom="8dp"
+                    android:visibility="gone" />
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tab_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:tabBackground="@color/transparent"
+                    app:tabGravity="fill"
+                    app:tabIndicatorColor="@color/app_default_blue"
+                    app:tabIndicatorFullWidth="false"
+                    app:tabMaxWidth="0dp"
+                    app:tabRippleColor="@color/transparent"
+                    app:tabSelectedTextColor="@color/a333333"
+                    app:tabTextColor="@color/a666666"
+                    app:wkp_stick="true" />
+
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/viewpager"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.haohao.zuhaohao.ui.views.StickLayout>
         </LinearLayout>
 
     </FrameLayout>
