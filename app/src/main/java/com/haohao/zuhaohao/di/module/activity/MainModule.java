@@ -1,6 +1,7 @@
 package com.haohao.zuhaohao.di.module.activity;
 
 import android.app.Activity;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -10,6 +11,7 @@ import com.haohao.zuhaohao.di.scoped.ActivityScoped;
 import com.haohao.zuhaohao.di.scoped.FragmentScoped;
 import com.haohao.zuhaohao.ui.module.main.MainActivity;
 import com.haohao.zuhaohao.ui.module.main.MainHome;
+import com.haohao.zuhaohao.ui.module.main.MainHomeAccList;
 import com.haohao.zuhaohao.ui.module.main.MainMe;
 import com.haohao.zuhaohao.ui.module.main.MainMeBuy;
 import com.haohao.zuhaohao.ui.module.main.MainMeSell;
@@ -61,6 +63,10 @@ public abstract class MainModule {
     @FragmentScoped
     @ContributesAndroidInjector
     abstract MainMeSell contributeMainMeSellInjector();
+
+    @FragmentScoped
+    @ContributesAndroidInjector
+    abstract MainHomeAccList contributeMainHomeAccListInjector();
 
     @QualifierType("main")
     @ActivityScoped

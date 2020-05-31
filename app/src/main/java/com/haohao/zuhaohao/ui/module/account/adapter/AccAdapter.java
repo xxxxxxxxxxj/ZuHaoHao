@@ -1,5 +1,6 @@
 package com.haohao.zuhaohao.ui.module.account.adapter;
 
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.blankj.utilcode.util.ObjectUtils;
@@ -23,6 +24,10 @@ public class AccAdapter extends BaseQuickAdapter<AccBean, BaseViewHolder> {
 
     private boolean isFree;
 
+    public AccAdapter(List<AccBean> list) {
+        super(R.layout.act_acc_list_item, list);
+    }
+
     public AccAdapter(List<AccBean> list, boolean isFree) {
         super(R.layout.act_acc_list_item, list);
         this.isFree = isFree;
@@ -30,7 +35,7 @@ public class AccAdapter extends BaseQuickAdapter<AccBean, BaseViewHolder> {
 
     @Override
     protected void convert(BaseViewHolder helper, AccBean item) {
-
+        Log.e("TAG", "item.imageurl = " + item.imageurl);
         helper.setText(R.id.tv_game_name, item.game_all_name)//游戏区服
                 .setText(R.id.tv_goods_title, item.goods_title)//标题
                 .setText(R.id.tv_title2, item.search_title)

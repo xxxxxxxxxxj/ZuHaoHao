@@ -105,7 +105,7 @@ public class MainHome extends ABaseFragment<MainHomeContract.Presenter> implemen
         for (int i = 0; i < strings.length; i++) {
             fragmentList.add(new MainHomeAccList(i));
         }
-        MyAdapter fragmentAdater = new MyAdapter(getFragmentManager());
+        MyAdapter fragmentAdater = new MyAdapter(getChildFragmentManager());
         binding.viewpager.setAdapter(fragmentAdater);
         binding.tabLayout.setupWithViewPager(binding.viewpager);
         //热门租号

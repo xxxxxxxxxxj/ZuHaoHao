@@ -50,7 +50,6 @@
                         app:upv_ratio="2.46" />
                 </LinearLayout>
 
-
                 <LinearLayout
                     android:id="@+id/ll_mainhome_rmzh"
                     android:layout_width="match_parent"
@@ -136,20 +135,65 @@
                     android:id="@+id/tab_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:tabBackground="@color/transparent"
+                    app:tabBackground="@color/white"
                     app:tabGravity="fill"
                     app:tabIndicatorColor="@color/app_default_blue"
                     app:tabIndicatorFullWidth="false"
                     app:tabMaxWidth="0dp"
                     app:tabRippleColor="@color/transparent"
                     app:tabSelectedTextColor="@color/a333333"
-                    app:tabTextColor="@color/a666666"
+                    app:tabTextColor="@color/a999999"
                     app:wkp_stick="true" />
 
                 <androidx.viewpager.widget.ViewPager
                     android:id="@+id/viewpager"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:background="@color/cardview_dark_background"
+                    android:layout_height="200dip" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:background="@color/app_default_blue"
+                    android:layout_height="200dip" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:background="@color/colorPrimary"
+                    android:layout_height="200dip" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:background="@color/cardview_dark_background"
+                    android:layout_height="200dip" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:background="@color/app_default_blue"
+                    android:layout_height="200dip" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:background="@color/colorPrimary"
+                    android:layout_height="200dip" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:background="@color/cardview_dark_background"
+                    android:layout_height="200dip" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:background="@color/app_default_blue"
+                    android:layout_height="200dip" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:background="@color/colorPrimary"
+                    android:layout_height="200dip" />
             </com.haohao.zuhaohao.ui.views.StickLayout>
         </LinearLayout>
 
