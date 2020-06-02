@@ -11,7 +11,7 @@ public class AppConfig {
     /**
      * 王者荣耀游戏ID
      */
-    public static final String GAME_ID = "1109";
+    public static final String GAME_ID = "302";
     /**
      * 王者荣耀游戏名字
      */

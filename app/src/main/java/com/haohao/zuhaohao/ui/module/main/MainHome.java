@@ -18,15 +18,11 @@ import com.haohao.zuhaohao.AppConfig;
 import com.haohao.zuhaohao.AppConstants;
 import com.haohao.zuhaohao.R;
 import com.haohao.zuhaohao.databinding.ActMainHomeBinding;
-import com.haohao.zuhaohao.ui.module.account.model.AccBean;
-import com.haohao.zuhaohao.ui.module.account.model.GameBean;
 import com.haohao.zuhaohao.ui.module.base.ABaseFragment;
 import com.haohao.zuhaohao.ui.module.base.BaseDataCms;
 import com.haohao.zuhaohao.ui.module.main.adapter.HomeBannerAdapter;
 import com.haohao.zuhaohao.ui.module.main.contract.MainHomeContract;
 import com.haohao.zuhaohao.ui.module.main.model.BannerBean;
-import com.haohao.zuhaohao.ui.module.main.model.HomeMultipleItem;
-import com.haohao.zuhaohao.ui.module.main.model.WelfareBean;
 import com.haohao.zuhaohao.ui.module.main.presenter.MainHomePresenter;
 import com.tmall.ultraviewpager.UltraViewPager;
 import com.umeng.analytics.MobclickAgent;
@@ -104,10 +100,7 @@ public class MainHome extends ABaseFragment<MainHomeContract.Presenter> implemen
 
 
     @Override
-    public void setGameList(List<BaseDataCms<BannerBean>> bannerList,
-                            List<HomeMultipleItem> list,
-                            List<BaseDataCms<AccBean>> hotList,
-                            List<BaseDataCms<WelfareBean>> welfareList, List<BaseDataCms<GameBean>> hotRentList) {
+    public void setGameList(List<BaseDataCms<BannerBean>> bannerList) {
         //第一个是banner
         bannerAdapter.repData(bannerList);
         binding.uvpBanner.refresh();
@@ -115,8 +108,8 @@ public class MainHome extends ABaseFragment<MainHomeContract.Presenter> implemen
 
     @Override
     public void setNoData(int type) {
-    }
 
+    }
 
     /**
      * 初始化banner

@@ -1,7 +1,6 @@
 package com.haohao.zuhaohao.ui.module.main;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 
+import com.haohao.zuhaohao.AppConfig;
 import com.haohao.zuhaohao.R;
 import com.haohao.zuhaohao.databinding.ActMainHomeHotgameBinding;
 import com.haohao.zuhaohao.ui.module.account.adapter.AccAdapter;
@@ -17,6 +17,7 @@ import com.haohao.zuhaohao.ui.module.account.model.AccBean;
 import com.haohao.zuhaohao.ui.module.base.ABaseFragment;
 import com.haohao.zuhaohao.ui.module.main.contract.MainHomeAccListContract;
 import com.haohao.zuhaohao.ui.module.main.presenter.MainHomeAccListPresenter;
+import com.haohao.zuhaohao.ui.views.NoDataView;
 import com.haohao.zuhaohao.utlis.LinearLayoutManager2;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -62,13 +63,12 @@ public class MainHomeAccList extends ABaseFragment<MainHomeAccListContract.Prese
     @Override
     protected void initCreate(@Nullable Bundle savedInstanceState) {
         Bundle bundle = getArguments();
-        //这里就拿到了之前传递的参数
         type = bundle.getInt("type");
+        presenter.setData(String.valueOf(type), AppConfig.GAME_ID, new NoDataView(getActivity()), false, localHotGameList);
         binding.rv.setLayoutManager(new LinearLayoutManager2(getActivity()));
         adapter = new AccAdapter(localHotGameList);
         binding.rv.setAdapter(adapter);
         adapter.setOnItemClickListener((adapter, view, position) -> presenter.onItemClick(position));
-        binding.srl.setEnableRefresh(false);
         binding.srl.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
@@ -77,21 +77,18 @@ public class MainHomeAccList extends ABaseFragment<MainHomeAccListContract.Prese
 
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                presenter.doRefresh();
             }
         });
         presenter.start();
     }
 
     @Override
-    public void setGameList(List<AccBean> hotGameList) {
-        Log.e("TAG", "setGameList = " + hotGameList.size());
-        localHotGameList.clear();
-        localHotGameList.addAll(hotGameList);
-        adapter.notifyDataSetChanged();
-        if (localHotGameList.size() <= 0) {
+    public void setVisiblity(int type) {
+        if (type == 1) {
             binding.srl.setVisibility(View.GONE);
             binding.llHomehotgameNodata.setVisibility(View.VISIBLE);
-        } else {
+        } else if (type == 0) {
             binding.llHomehotgameNodata.setVisibility(View.GONE);
             binding.srl.setVisibility(View.VISIBLE);
         }
@@ -109,6 +106,13 @@ public class MainHomeAccList extends ABaseFragment<MainHomeAccListContract.Prese
     @Override
     public SmartRefreshLayout getSrl() {
         return binding.srl;
+    }
+
+    @Override
+    public void onAutoRefresh() {
+        //设置为第一页
+        binding.rv.scrollToPosition(0);
+        binding.srl.autoRefresh();
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.haohao.zuhaohao.ui.module.main.presenter;
 
+import android.util.Log;
+
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.blankj.utilcode.util.ToastUtils;
 import com.haohao.zuhaohao.AppConfig;
@@ -24,7 +26,7 @@ import javax.inject.Inject;
  * author：Seraph
  **/
 public class MainHomeAccListPresenter extends MainHomeAccListContract.Presenter {
-    private final NoDataView noDataView;
+    private NoDataView noDataView;
     private List<AccBean> list;
     private boolean isFree;
     private Api8Service api8Service;
@@ -33,7 +35,7 @@ public class MainHomeAccListPresenter extends MainHomeAccListContract.Presenter 
     private String selectPlatform;
     private String game_id;
 
-    @Inject
+    /*@Inject
     MainHomeAccListPresenter(Api8Service api8Service, String selectPlatform, String game_id, NoDataView noDataView, boolean isFree, List<AccBean> list) {
         this.api8Service = api8Service;
         this.selectPlatform = selectPlatform;
@@ -41,11 +43,24 @@ public class MainHomeAccListPresenter extends MainHomeAccListContract.Presenter 
         this.noDataView = noDataView;
         this.isFree = isFree;
         this.list = list;
+    }*/
+
+    public void setData(String selectPlatform, String game_id, NoDataView noDataView, boolean isFree, List<AccBean> list) {
+        this.selectPlatform = selectPlatform;
+        this.game_id = game_id;
+        this.noDataView = noDataView;
+        this.isFree = isFree;
+        this.list = list;
+    }
+
+    @Inject
+    MainHomeAccListPresenter(Api8Service api8Service) {
+        this.api8Service = api8Service;
     }
 
     @Override
     public void start() {
-        doRefresh();
+        mView.onAutoRefresh();
     }
 
     public void doRefresh() {
@@ -68,14 +83,7 @@ public class MainHomeAccListPresenter extends MainHomeAccListContract.Presenter 
         map.put("businessNo", AppConfig.getChannelValue());
         //系统筛选
         if (selectPlatform != null) {
-            switch (selectPlatform) {
-                case "安卓":
-                    map.put("system", "0");
-                    break;
-                case "苹果":
-                    map.put("system", "1");
-                    break;
-            }
+            map.put("system", selectPlatform);
         }
         api8Service.findGoodsList(map)
                 .compose(RxSchedulers.io_main_business())
@@ -84,6 +92,15 @@ public class MainHomeAccListPresenter extends MainHomeAccListContract.Presenter 
                 .subscribe(new ABaseSubscriber<BaseData<AccBean>>() {
                     @Override
                     public void onSuccess(BaseData<AccBean> accountList) {
+                        if (tempPageNo == 1) {
+                            if (accountList.list != null && accountList.list.size() > 0) {
+                                Log.e("TAG","123");
+                                mView.setVisiblity(0);
+                            } else {
+                                Log.e("TAG","456");
+                                mView.setVisiblity(1);
+                            }
+                        }
                         pageNo = PageUtils.doSuccess(tempPageNo, list, accountList.list,
                                 (start, size) -> mView.notifyItemRangeChanged(start, size), noDataView, mView.getSrl());
                     }

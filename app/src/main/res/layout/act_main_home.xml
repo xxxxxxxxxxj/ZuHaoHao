@@ -37,23 +37,18 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/white"
-                        android:paddingLeft="15dip"
-                        android:paddingTop="20dip"
-                        android:paddingRight="15dip"
                         app:contentScrim="@color/white"
                         app:layout_scrollFlags="scroll">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="13dip"
                             android:orientation="vertical">
 
                             <com.tmall.ultraviewpager.UltraViewPager
                                 android:id="@+id/uvp_banner"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="4dp"
                                 app:upv_ratio="2.46" />
                         </LinearLayout>
 

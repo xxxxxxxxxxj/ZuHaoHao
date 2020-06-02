@@ -42,12 +42,18 @@
         <com.scwang.smartrefresh.layout.SmartRefreshLayout
             android:id="@+id/srl"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="match_parent" />
+
+            <pl.droidsonroids.gif.GifImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/def_refresh_h"
+                android:scaleType="center"
+                android:src="@mipmap/gif_common_load" />
         </com.scwang.smartrefresh.layout.SmartRefreshLayout>
     </RelativeLayout>
 </layout>
