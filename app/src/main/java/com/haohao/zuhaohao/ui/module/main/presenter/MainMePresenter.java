@@ -1,5 +1,7 @@
 package com.haohao.zuhaohao.ui.module.main.presenter;
 
+import android.util.Log;
+
 import com.blankj.utilcode.util.ToastUtils;
 import com.hwangjr.rxbus.RxBus;
 import com.haohao.zuhaohao.AppConstants;
@@ -45,8 +47,11 @@ public class MainMePresenter extends MainMeContract.Presenter {
     public void updateUserBean() {
         RxBus.get().post(AppConstants.RxBusAction.TAG_MAIN_ME2, true);
         if (userBeanHelp.getUserBean() != null) {
+            Log.e("TAG","1111");
             doAccountInfo();
             hasUnreadMessage();
+        }else{
+            Log.e("TAG","2222");
         }
     }
 

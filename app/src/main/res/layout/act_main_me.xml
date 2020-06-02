@@ -60,6 +60,7 @@
                 app:xTabIndicatorColor="@color/app_default_blue"
                 app:xTabIndicatorHeight="2dp"
                 app:xTabMode="fixed"
+                android:visibility="gone"
                 app:xTabSelectedTextColor="@color/app_default_blue"
                 app:xTabSelectedTextSize="16sp"
                 app:xTabTextColor="#ffffff"
@@ -98,7 +99,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-        <androidx.viewpager.widget.ViewPager
+        <com.haohao.zuhaohao.ui.views.NoScrollViewPager
             android:id="@+id/vp"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

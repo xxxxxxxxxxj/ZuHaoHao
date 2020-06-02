@@ -51,7 +51,7 @@ public class MainHomeAccListPresenter extends MainHomeAccListContract.Presenter 
                             mView.setNoData(NoDataView.LOADING_OK);
                         } else {
                             ToastUtils.showShort("数据为空");
-                            mView.setNoData(NoDataView.NET_ERR);
+                            mView.setNoData(NoDataView.NO_DATA);
                         }
                     }
 

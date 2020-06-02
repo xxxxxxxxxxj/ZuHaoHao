@@ -129,7 +129,7 @@ public class LoginPresenter extends LoginContract.Presenter {
             //正常登陆
             //toLogin(phone, password);
             ToastUtils.showShort("登录成功");
-            UserBean userBean = new UserBean("1765955",null,"13986181567","13986181567",null,"13986181567","eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJ1c2VyX2lkIjoiMTc2NTk1NSIsInVzZXJfbmFtZSI6IjEzOTg2MTgxNTY3IiwibG9naW5Tb3VyY2UiOiIiLCJpc3MiOiIxNzY1OTU1IiwiZXhwIjoxNTkwOTIwNzM4LCJuYmYiOjE1OTA2NjE1Mzh9.S-OPRiWEMo4nXMuFj7BHn9Ac-rpuS8sfRdAhci31RhnQ2QCJEa8r5YUZfJenWBgel4q5NAdJ9QbXzaQ4EBGVyA");
+            UserBean userBean = new UserBean("1765955",null,"13986181567","13986181567",null,"13986181567","eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJ1c2VyX2lkIjoiMTc2NTk1NSIsInVzZXJfbmFtZSI6IjEzOTg2MTgxNTY3IiwibG9naW5Tb3VyY2UiOiIiLCJpc3MiOiIxNzY1OTU1IiwiZXhwIjoxNTkxMzIwNzkyLCJuYmYiOjE1OTEwNjE1OTJ9.4-alXMgB8w62qJApCYUZnPalQrX_YuwNqhWwYR3i2R8Ud2nvGGGk-g4ijFM7ISwARvCiKusSmVIvVSwvh3uVKA");
             saveLoginUserAccount(userBean.mobile, "123456");
             saveUserInfo(userBean);
             if (isCleanUser) {

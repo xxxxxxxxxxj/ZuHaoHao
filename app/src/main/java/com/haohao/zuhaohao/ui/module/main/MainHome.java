@@ -92,7 +92,7 @@ public class MainHome extends ABaseFragment<MainHomeContract.Presenter> implemen
 
     @Inject
     HomeHotRentAdapter mHomeHotRentAdapter;
-    private List<ABaseFragment> fragmentList = new ArrayList<ABaseFragment>();
+    private List<MainHomeAccList> fragmentList = new ArrayList<MainHomeAccList>();
     private String[] strings = new String[]{"安卓", "苹果"};
 
     @Inject
@@ -103,11 +103,21 @@ public class MainHome extends ABaseFragment<MainHomeContract.Presenter> implemen
     public void initCreate(@Nullable Bundle savedInstanceState) {
         //tab分类
         for (int i = 0; i < strings.length; i++) {
-            fragmentList.add(new MainHomeAccList(i));
+            MainHomeAccList mainHomeAccList = new MainHomeAccList();
+            Bundle bundle = new Bundle();
+            bundle.putInt("type", i);
+            mainHomeAccList.setArguments(bundle);
+            fragmentList.add(mainHomeAccList);
         }
         MyAdapter fragmentAdater = new MyAdapter(getChildFragmentManager());
+        binding.viewpager.setOffscreenPageLimit(2);
         binding.viewpager.setAdapter(fragmentAdater);
-        binding.tabLayout.setupWithViewPager(binding.viewpager);
+        binding.tabLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                binding.tabLayout.setupWithViewPager(binding.viewpager);
+            }
+        });
         //热门租号
         binding.rvMainhomeRmzh.setHasFixedSize(true);
         binding.rvMainhomeRmzh.setNestedScrollingEnabled(false);
@@ -173,8 +183,8 @@ public class MainHome extends ABaseFragment<MainHomeContract.Presenter> implemen
         adapter.replaceData(list);
         //热销商品
         if (hotList != null && hotList.size() > 0) {
-            binding.tvHotTitle.setVisibility(View.VISIBLE);
-            binding.rvHot.setVisibility(View.VISIBLE);
+            binding.tvHotTitle.setVisibility(View.GONE);
+            binding.rvHot.setVisibility(View.GONE);
             hotAdapter.replaceData(hotList);
         }
         //福利中心
@@ -256,7 +266,7 @@ public class MainHome extends ABaseFragment<MainHomeContract.Presenter> implemen
         }
 
         @Override
-        public ABaseFragment getItem(int position) {
+        public MainHomeAccList getItem(int position) {
             return fragmentList.get(position);
         }
 

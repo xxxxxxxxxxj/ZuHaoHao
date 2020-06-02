@@ -1,6 +1,7 @@
 package com.haohao.zuhaohao.ui.module.main;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -212,6 +213,7 @@ public class MainMeBuy extends ABaseFragment<MainMeBuySellContract.Presenter> im
 
     @Subscribe(tags = {@Tag(AppConstants.RxBusAction.TAG_MAIN_ME2)})
     public void setUpdateUserInfo(Boolean aBoolean) {
+        Log.e("TAG","setUpdateUserInfo");
         presenter.updateUserBean();
     }
 
@@ -220,6 +222,7 @@ public class MainMeBuy extends ABaseFragment<MainMeBuySellContract.Presenter> im
 
     @Subscribe(tags = {@Tag(AppConstants.RxBusAction.TAG_MAIN_ME)})
     public void setAcctManageBean(AcctManageBean manageBean) {
+        Log.e("TAG","setAcctManageBean");
         this.acctManageBean = manageBean;
         String tempKyBalance;
         String tempDjBalance;

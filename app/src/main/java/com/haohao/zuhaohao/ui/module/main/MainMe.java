@@ -89,9 +89,9 @@ public class MainMe extends ABaseFragment<MainMeContract.Presenter> implements M
         super.onResume();
         MobclickAgent.onPageStart(mPageName);
         //如果子界面加载完成则又获取焦点，则请求数据
-        if (isShowOk) {
+        //if (isShowOk) {
             presenter.updateUserBean();
-        }
+        //}
     }
 
 

@@ -16,6 +16,7 @@ import com.haohao.zuhaohao.ui.module.account.model.AccBean;
 import com.haohao.zuhaohao.ui.module.base.ABaseFragment;
 import com.haohao.zuhaohao.ui.module.main.contract.MainHomeAccListContract;
 import com.haohao.zuhaohao.ui.module.main.presenter.MainHomeAccListPresenter;
+import com.haohao.zuhaohao.ui.views.NoDataView;
 import com.haohao.zuhaohao.ui.views.NoScollFullLinearLayoutManager;
 import com.umeng.analytics.MobclickAgent;
 
@@ -33,11 +34,6 @@ import javax.inject.Inject;
  * @date zhoujunxia on 2020-05-29 18:17
  */
 public class MainHomeAccList extends ABaseFragment<MainHomeAccListContract.Presenter> implements MainHomeAccListContract.View {
-    private int type;
-
-    public MainHomeAccList(int type) {
-        super();
-    }
 
     private final String mPageName = "MainHomeAccList";
 
@@ -48,6 +44,7 @@ public class MainHomeAccList extends ABaseFragment<MainHomeAccListContract.Prese
 
     private AccAdapter adapter;
     private List<AccBean> localHotGameList = new ArrayList<AccBean>();
+    private int type;
 
     @Override
     protected View initDataBinding(LayoutInflater inflater, ViewGroup container) {
@@ -62,7 +59,9 @@ public class MainHomeAccList extends ABaseFragment<MainHomeAccListContract.Prese
 
     @Override
     protected void initCreate(@Nullable Bundle savedInstanceState) {
-        binding.textView.setText(""+type);
+        Bundle bundle = getArguments();
+        //这里就拿到了之前传递的参数
+        type = bundle.getInt("type");
         binding.recyclerView.setHasFixedSize(true);
         binding.recyclerView.setNestedScrollingEnabled(false);
         NoScollFullLinearLayoutManager noScollFullLinearLayoutManager = new
@@ -79,8 +78,25 @@ public class MainHomeAccList extends ABaseFragment<MainHomeAccListContract.Prese
     public void setGameList(List<AccBean> hotGameList) {
         Log.e("TAG", "setGameList = " + hotGameList.size());
         localHotGameList.clear();
-        localHotGameList.addAll(hotGameList);
+        for (int i = 0; i < hotGameList.size(); i++) {
+            if (type == 0) {//安卓
+                if (hotGameList.get(i).system == 0) {
+                    localHotGameList.add(hotGameList.get(i));
+                }
+            } else {//苹果
+                if (hotGameList.get(i).system == 1) {
+                    localHotGameList.add(hotGameList.get(i));
+                }
+            }
+        }
         adapter.notifyDataSetChanged();
+        if (localHotGameList.size() <= 0) {
+            binding.recyclerView.setVisibility(View.GONE);
+            binding.llHomehotgameNodata.setVisibility(View.VISIBLE);
+        }else{
+            binding.llHomehotgameNodata.setVisibility(View.GONE);
+            binding.recyclerView.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

@@ -9,7 +9,7 @@
         android:id="@+id/item_2"
         android:checked="true"
         android:icon="@drawable/act_main_icon_selector_lease"
-        android:title="租号" />
+        android:title="租号" /><!--
     <item
         android:id="@+id/item_3"
         android:checked="true"
@@ -19,7 +19,7 @@
         android:id="@+id/item_4"
         android:checked="true"
         android:icon="@drawable/act_main_icon_selector_order"
-        android:title="订单" />
+        android:title="订单" />-->
     <item
         android:id="@+id/item_5"
         android:checked="true"

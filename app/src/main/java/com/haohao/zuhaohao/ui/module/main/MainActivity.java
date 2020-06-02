@@ -91,13 +91,13 @@ public class MainActivity extends ABaseActivity<MainContract.Presenter> implemen
                 break;
             case R.id.item_2://出租游戏列表
                 presenter.doSelectLease();
-                return false;
+                return false;/*
             case R.id.item_3://发布
                 showIndex = 1;
                 break;
             case R.id.item_4://订单
                 presenter.doSelectOrder();
-                return false;
+                return false;*/
             case R.id.item_5://我的
                 showIndex = 2;
                 break;

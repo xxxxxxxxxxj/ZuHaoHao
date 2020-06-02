@@ -48,5 +48,6 @@ public class AccBean implements Serializable {
     //   "is_show_text": "上号器登录",
 
     public String deadLineOnLine;   //1 到时不下线
+    public int system;   //0安卓1苹果
 
 }
