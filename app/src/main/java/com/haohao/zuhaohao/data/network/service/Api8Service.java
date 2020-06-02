@@ -136,5 +136,7 @@ public interface Api8Service {
     @GET("fulu-goods-cloud/anonapi/getGameSearchRelation")
     Flowable<BaseDataResponse<List<GameSearchRelationBean>>> getGameSearchRelation(@Query("gameId") String gameId);
 
-
+    //金币比例
+    @GET("fulu-page-cloud/anon/cms/getModDataByModId?modId=app_search_hot")
+    Flowable<BaseDataResponse<BaseData<BaseDataCms<GameBean>>>> getHotSearch();
 }

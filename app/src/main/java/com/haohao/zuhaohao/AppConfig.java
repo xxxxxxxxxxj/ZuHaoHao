@@ -15,7 +15,7 @@ public class AppConfig {
     /**
      * 王者荣耀游戏名字
      */
-    public static final String GAME_NAME = "王者荣耀";
+    public static final String GAME_NAME = "穿越火线";
 
     /**
      * 本地数据库名称
