@@ -217,9 +217,6 @@ public class AppConstants {
 
     //渠道对应的编号
     public static final class ChannelAction {
-        //渠道 0-xubei  1-app_yimi 2-xiaomi 3-vivo 4-应用宝 5-华为 6-网侠
-
-        public static final String SEND_SMS_CHANNEN = "xubei_android";
 
         public static String getChannelNo(String channelValue) {
             switch (channelValue) {

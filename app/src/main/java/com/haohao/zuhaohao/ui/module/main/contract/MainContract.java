@@ -10,12 +10,6 @@ import com.haohao.zuhaohao.ui.module.base.IABaseContract;
 public interface MainContract extends IABaseContract {
 
     interface View extends IBaseView {
-
-        void showWelfareDialog();
-
-//        void showRedAmountDialog();
-//
-//        void showRedAmountDialogValue(double amount);
     }
 
     abstract class Presenter extends ABasePresenter<View> {

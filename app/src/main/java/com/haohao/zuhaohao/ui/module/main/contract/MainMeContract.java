@@ -11,8 +11,6 @@ import com.haohao.zuhaohao.ui.module.base.IABaseContract;
 public interface MainMeContract extends IABaseContract {
 
     interface View extends IBaseView {
-
-        void updateIsNewMsg(boolean isNewMsg);
     }
 
     abstract class Presenter extends ABasePresenter<View> {

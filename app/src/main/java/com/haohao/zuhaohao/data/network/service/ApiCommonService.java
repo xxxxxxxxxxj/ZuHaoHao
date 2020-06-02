@@ -38,11 +38,6 @@ public interface ApiCommonService {
     @GET("diversion/getExchangeByMobile")
     Flowable<BaseDataResponse<List<RedemptionRecordBean>>> getExchangeByMobile(@Header("Authorization") String authorization);
 
-    //获取是否有可以兑换的券
-    @GET("anon/diversion/receive/getByMobile")
-    Flowable<BaseDataResponse<String>> getByMobileReceive(@Query("mobile") String mobile);
-
-
     //保存用户得消息配置
     @GET("anon/message/push/config/save")
     Flowable<BaseDataResponse<String>> saveMessageConfig(@Header("Authorization") String authorization, @Query("type") String type, @Query("status") String status);

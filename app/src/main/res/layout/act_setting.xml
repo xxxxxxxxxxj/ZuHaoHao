@@ -53,6 +53,7 @@
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:layout_marginStart="16dp"
+            android:visibility="gone"
             android:layout_marginEnd="16dp"
             android:background="#d8d8d8" />
 
@@ -61,6 +62,7 @@
             style="@style/ll_item_layout_style"
             android:layout_width="match_parent"
             android:drawableEnd="@mipmap/common_icon_arrow_r_min"
+            android:visibility="gone"
             android:gravity="center_vertical"
             android:onClick="@{activity::onViewClicked}"
             android:padding="16dp"

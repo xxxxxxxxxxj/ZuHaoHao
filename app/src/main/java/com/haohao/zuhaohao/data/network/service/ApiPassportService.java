@@ -5,7 +5,6 @@ import com.haohao.zuhaohao.ui.module.login.model.UserBean;
 
 import io.reactivex.Flowable;
 import retrofit2.http.GET;
-import retrofit2.http.Header;
 import retrofit2.http.Query;
 
 /**
@@ -44,9 +43,4 @@ public interface ApiPassportService {
     //找回登录密码
     @GET("reg/changeLoginPwdExt")
     Flowable<BaseDataResponse<String>> changeLoginPwdExt(@Query("mobile") String mobile, @Query("loginPwd") String loginPwd, @Query("code") String code);
-
-    //app点击统计调用
-    @GET("app/login/app/openAppOpr")
-    Flowable<BaseDataResponse<String>> openAppOpr(@Header("Authorization") String authorization);
-
 }

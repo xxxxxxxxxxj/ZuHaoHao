@@ -99,10 +99,6 @@ public interface Api8Service {
     @GET("fulu-common-web/anon/message/push/updateStatus")
     Flowable<BaseDataResponse<String>> updateStatus(@Header("Authorization") String authorization, @Query("messageId") Long messageId);
 
-    //查询是否有未读消息
-    @GET("fulu-common-web/anon/message/push/hasUnreadMessage")
-    Flowable<BaseDataResponse<Boolean>> hasUnreadMessage(@Header("Authorization") String authorization);
-
     //获取游戏配置
     @GET("fulu-goods-cloud/anonapi/server/game/getPublishShowField")
     Flowable<BaseDataResponse<List<GameConfigBean>>> findGoodsConfig(@Query("serverId") String serverId, @Query("bigGameId") String bigGameId);

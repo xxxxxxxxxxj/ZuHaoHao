@@ -4,15 +4,13 @@ import android.os.Bundle;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.blankj.utilcode.util.ActivityUtils;
-import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.haohao.zuhaohao.AppConfig;
 import com.haohao.zuhaohao.AppConstants;
 import com.haohao.zuhaohao.data.db.help.UserBeanHelp;
-import com.haohao.zuhaohao.data.network.rx.RxSchedulers;
 import com.haohao.zuhaohao.data.network.service.ApiCommonService;
-import com.haohao.zuhaohao.ui.module.base.ABaseSubscriber;
+import com.haohao.zuhaohao.ui.module.account.model.GameBean;
 import com.haohao.zuhaohao.ui.module.main.contract.MainContract;
 
 import java.util.concurrent.TimeUnit;
@@ -52,36 +50,6 @@ public class MainPresenter extends MainContract.Presenter {
 
     @Override
     public void start() {
-        doCheckWelfare();
-    }
-
-
-    //检查福利相关的信息
-    private void doCheckWelfare() {
-        //判断如果已经跳转过了，则不再请求
-        boolean isOpen = spUtils.getBoolean(AppConstants.SPAction.IS_OPEN_WELFARE, false);
-        //打开过或者没有登录，则不请求接口
-        if (isOpen || !userBeanHelp.isLogin()) {
-            return;
-        }
-        //如果有可以拆的红包
-        apiCommonService.getByMobileReceive(userBeanHelp.getUserBean().getMobile())
-                .compose(RxSchedulers.io_main_business())
-                .as(mView.bindLifecycle())
-                .subscribe(new ABaseSubscriber<String>() {
-                    @Override
-                    protected void onSuccess(String s) {
-                        mView.showWelfareDialog();
-                    }
-
-                    @Override
-                    protected void onError(String errStr) {
-                        if (AppConfig.DEBUG) {
-                            LogUtils.e(errStr);
-                        }
-                    }
-                });
-
     }
 
     //跳转订单
@@ -89,10 +57,10 @@ public class MainPresenter extends MainContract.Presenter {
         ARouter.getInstance().build(AppConstants.PagePath.ORDER_ALL).navigation();
     }
 
-
     //转跳租号界面
     public void doSelectLease() {
-        ARouter.getInstance().build(AppConstants.PagePath.ACC_LEASEALLTYPE).navigation();
+        //游戏列表
+        ARouter.getInstance().build(AppConstants.PagePath.ACC_LIST).withSerializable("bean", new GameBean(AppConfig.GAME_ID,AppConfig.GAME_NAME)).navigation();
     }
 
     /**

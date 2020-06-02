@@ -9,7 +9,6 @@ import androidx.fragment.app.FragmentManager;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.blankj.utilcode.util.FragmentUtils;
-import com.blankj.utilcode.util.SizeUtils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomnavigation.LabelVisibilityMode;
 import com.haohao.zuhaohao.AppConstants;
@@ -143,43 +142,4 @@ public class MainActivity extends ABaseActivity<MainContract.Presenter> implemen
 
     @Inject
     SuccessfulReceiptDialog receiptDialog;
-
-    @Override
-    public void showWelfareDialog() {
-        receiptDialog.setDialogWidthHeight(SizeUtils.dp2px(270), SizeUtils.dp2px(315))
-                .setOnClickListener(v -> presenter.doOpenWelfare()).show();
-    }
-
-//    @Inject
-//    RedMoneyDialog redMoneyDialog;
-
-    //显示红包弹出框
-//    @Override
-//    public void showRedAmountDialog() {
-//        redMoneyDialog.setDialogWidthHeight(SizeUtils.dp2px(250), SizeUtils.dp2px(380))
-//                .setOpenClickListener(type -> {
-//                    switch (type) {
-//                        case RedMoneyDialog2.TYPE_OPEN_RED:
-//                            //点击打开红包
-//                            mPresenter.doOpenRed();
-//                            break;
-//                        case RedMoneyDialog2.TYPE_LOOK_RED:
-//                            //查看红包
-//                            startActivity(new Intent(MainActivity.this, MyPurseActivity.class));
-//                            break;
-//                    }
-//                }).show();
-//        redMoneyDialog.setDialogWidthHeight(SizeUtils.dp2px(250), SizeUtils.dp2px(380))
-//                .setOpenClickListener(() -> {
-//                    //点击打开红包
-//                    presenter.doOpenRed();
-//                }).show();
-//    }
-
-    //显示拆到的红包金额
-//    @Override
-//    public void showRedAmountDialogValue(double amount) {
-//        redMoneyDialog.setRedValue(amount);
-//    }
-
 }

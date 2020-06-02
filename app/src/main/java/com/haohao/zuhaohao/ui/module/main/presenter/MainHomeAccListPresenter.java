@@ -2,17 +2,18 @@ package com.haohao.zuhaohao.ui.module.main.presenter;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.blankj.utilcode.util.ToastUtils;
+import com.haohao.zuhaohao.AppConfig;
 import com.haohao.zuhaohao.AppConstants;
 import com.haohao.zuhaohao.data.network.rx.RxSchedulers;
 import com.haohao.zuhaohao.data.network.service.Api8Service;
 import com.haohao.zuhaohao.ui.module.account.model.AccBean;
 import com.haohao.zuhaohao.ui.module.base.ABaseSubscriber;
 import com.haohao.zuhaohao.ui.module.base.BaseData;
-import com.haohao.zuhaohao.ui.module.base.BaseDataCms;
 import com.haohao.zuhaohao.ui.module.main.contract.MainHomeAccListContract;
 import com.haohao.zuhaohao.ui.views.NoDataView;
+import com.haohao.zuhaohao.utlis.PageUtils;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -23,42 +24,74 @@ import javax.inject.Inject;
  * author：Seraph
  **/
 public class MainHomeAccListPresenter extends MainHomeAccListContract.Presenter {
-    private List<AccBean> list = new ArrayList<>();
+    private final NoDataView noDataView;
+    private List<AccBean> list;
     private boolean isFree;
     private Api8Service api8Service;
+    private int pageNo = 0;
+    //选择平台
+    private String selectPlatform;
+    private String game_id;
 
     @Inject
-    MainHomeAccListPresenter(Api8Service api8Service) {
+    MainHomeAccListPresenter(Api8Service api8Service, String selectPlatform, String game_id, NoDataView noDataView, boolean isFree, List<AccBean> list) {
         this.api8Service = api8Service;
+        this.selectPlatform = selectPlatform;
+        this.game_id = game_id;
+        this.noDataView = noDataView;
+        this.isFree = isFree;
+        this.list = list;
     }
 
     @Override
     public void start() {
-        api8Service.getHotList()
+        doRefresh();
+    }
+
+    public void doRefresh() {
+        //刷新第一页
+        findGoodsList(1);
+    }
+
+    public void nextPage() {
+        //下一页
+        findGoodsList(pageNo + 1);
+    }
+
+    //查询游戏账号列表
+    private void findGoodsList(final int tempPageNo) {
+        HashMap<String, Object> map = new HashMap<>();
+        //游戏id
+        map.put("gameId", game_id);
+        map.put("pageSize", AppConfig.PAGE_SIZE);
+        map.put("pageIndex", tempPageNo);
+        map.put("businessNo", AppConfig.getChannelValue());
+        //系统筛选
+        if (selectPlatform != null) {
+            switch (selectPlatform) {
+                case "安卓":
+                    map.put("system", "0");
+                    break;
+                case "苹果":
+                    map.put("system", "1");
+                    break;
+            }
+        }
+        api8Service.findGoodsList(map)
                 .compose(RxSchedulers.io_main_business())
-                .doOnSubscribe(subscription -> mView.setNoData(NoDataView.LOADING))
+                .doOnSubscribe(subscription -> noDataView.setType(NoDataView.LOADING))
                 .as(mView.bindLifecycle())
-                .subscribe(new ABaseSubscriber<BaseData<BaseDataCms<AccBean>>>() {
+                .subscribe(new ABaseSubscriber<BaseData<AccBean>>() {
                     @Override
-                    public void onSuccess(BaseData<BaseDataCms<AccBean>> accountList) {
-                        if (accountList != null && accountList.datas.size() > 0) {
-                            list.clear();
-                            for (int i = 0; i < accountList.datas.size(); i++) {
-                                BaseDataCms<AccBean> accBeanBaseDataCms = accountList.datas.get(i);
-                                list.add(accBeanBaseDataCms.properties);
-                            }
-                            mView.setGameList(list);
-                            mView.setNoData(NoDataView.LOADING_OK);
-                        } else {
-                            ToastUtils.showShort("数据为空");
-                            mView.setNoData(NoDataView.NO_DATA);
-                        }
+                    public void onSuccess(BaseData<AccBean> accountList) {
+                        pageNo = PageUtils.doSuccess(tempPageNo, list, accountList.list,
+                                (start, size) -> mView.notifyItemRangeChanged(start, size), noDataView, mView.getSrl());
                     }
 
                     @Override
                     public void onError(String errStr) {
                         ToastUtils.showShort(errStr);
-                        mView.setNoData(NoDataView.NET_ERR);
+                        PageUtils.doError(noDataView, mView.getSrl());
                     }
                 });
     }

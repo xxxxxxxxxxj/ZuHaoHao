@@ -18,12 +18,12 @@
             android:id="@+id/ll_homehotgame_nodata"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:visibility="gone"
-            android:layout_marginBottom="50dip"
             android:layout_marginTop="50dip"
+            android:layout_marginBottom="50dip"
+            android:background="@color/white"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="90dp"
@@ -36,19 +36,18 @@
                 android:layout_margin="5dp"
                 android:gravity="center"
                 android:text="暂无数据"
-                android:textColor="#bababa"/>
+                android:textColor="#bababa" />
         </LinearLayout>
 
-        <LinearLayout
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@+id/srl"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView"
+                android:id="@+id/rv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
-        </LinearLayout>
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
     </RelativeLayout>
 </layout>

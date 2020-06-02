@@ -3,6 +3,8 @@ package com.haohao.zuhaohao.ui.module.welcome;
 import android.content.Intent;
 import android.net.Uri;
 
+import androidx.lifecycle.Lifecycle;
+
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.StringUtils;
@@ -21,7 +23,6 @@ import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
-import androidx.lifecycle.Lifecycle;
 import io.reactivex.Flowable;
 
 /**
@@ -51,8 +52,6 @@ class WelcomeActivityPresenter extends WelcomeActivityContract.Presenter {
         spUtils = SPUtils.getInstance(AppConstants.SPAction.SP_NAME);
         //更新广告信息
         updateADInfo();
-        //调用统计
-        openApp();
         //开始倒计时显示广告或者跳转
         CountDown();
     }
@@ -197,26 +196,4 @@ class WelcomeActivityPresenter extends WelcomeActivityContract.Presenter {
                 });
 
     }
-
-    //在用户登录的情况下调用统计
-    private void openApp() {
-        if (userBeanHelp.isLogin()) {
-            apiPassportService.openAppOpr(userBeanHelp.getAuthorization())
-                    .compose(RxSchedulers.io_main_business())
-                    .as(mView.bindLifecycle())
-                    .subscribe(new ABaseSubscriber<String>() {
-                        @Override
-                        public void onSuccess(String s) {
-
-                        }
-
-                        @Override
-                        public void onError(String errStr) {
-
-                        }
-                    });
-        }
-    }
-
-
 }

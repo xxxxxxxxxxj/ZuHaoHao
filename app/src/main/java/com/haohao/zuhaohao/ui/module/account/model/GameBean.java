@@ -10,12 +10,19 @@ import java.io.Serializable;
  * author：Seraph
  **/
 public class GameBean implements Serializable {
+    public GameBean() {
+    }
 
     public String game_id;//371                *
     public String game_type;//1 端游  2手游     *
     protected String game_name;//游戏名称         *
     public String img_url = "";//图片      (热门游戏，租号类型包含的游戏)
     public String goto_link; // 跳转的超连接    *
+
+    public GameBean(String game_id, String game_name) {
+        this.game_id = game_id;
+        this.game_name = game_name;
+    }
 
     //租号游戏类型列表使用
     private String name; //游戏名称

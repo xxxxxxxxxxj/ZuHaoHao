@@ -2,6 +2,7 @@ package com.haohao.zuhaohao.ui.module.main.contract;
 
 import com.haohao.zuhaohao.ui.module.account.model.AccBean;
 import com.haohao.zuhaohao.ui.module.base.IABaseContract;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import java.util.List;
 
@@ -16,7 +17,9 @@ public interface MainHomeAccListContract extends IABaseContract {
 
         void setGameList(List<AccBean> hotGameList);
 
-        void setNoData(int type);
+        void notifyItemRangeChanged(int positionStart, int itemCount);
+
+        SmartRefreshLayout getSrl();
     }
 
     abstract class Presenter extends ABasePresenter<View> {

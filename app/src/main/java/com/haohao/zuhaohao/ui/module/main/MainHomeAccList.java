@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 
@@ -16,8 +17,10 @@ import com.haohao.zuhaohao.ui.module.account.model.AccBean;
 import com.haohao.zuhaohao.ui.module.base.ABaseFragment;
 import com.haohao.zuhaohao.ui.module.main.contract.MainHomeAccListContract;
 import com.haohao.zuhaohao.ui.module.main.presenter.MainHomeAccListPresenter;
-import com.haohao.zuhaohao.ui.views.NoDataView;
-import com.haohao.zuhaohao.ui.views.NoScollFullLinearLayoutManager;
+import com.haohao.zuhaohao.utlis.LinearLayoutManager2;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
@@ -38,7 +41,6 @@ public class MainHomeAccList extends ABaseFragment<MainHomeAccListContract.Prese
     private final String mPageName = "MainHomeAccList";
 
     private ActMainHomeHotgameBinding binding;
-
     @Inject
     MainHomeAccListPresenter presenter;
 
@@ -62,15 +64,21 @@ public class MainHomeAccList extends ABaseFragment<MainHomeAccListContract.Prese
         Bundle bundle = getArguments();
         //这里就拿到了之前传递的参数
         type = bundle.getInt("type");
-        binding.recyclerView.setHasFixedSize(true);
-        binding.recyclerView.setNestedScrollingEnabled(false);
-        NoScollFullLinearLayoutManager noScollFullLinearLayoutManager = new
-                NoScollFullLinearLayoutManager(getActivity());
-        noScollFullLinearLayoutManager.setScrollEnabled(false);
-        binding.recyclerView.setLayoutManager(noScollFullLinearLayoutManager);
+        binding.rv.setLayoutManager(new LinearLayoutManager2(getActivity()));
         adapter = new AccAdapter(localHotGameList);
-        binding.recyclerView.setAdapter(adapter);
+        binding.rv.setAdapter(adapter);
         adapter.setOnItemClickListener((adapter, view, position) -> presenter.onItemClick(position));
+        binding.srl.setEnableRefresh(false);
+        binding.srl.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                presenter.nextPage();
+            }
+
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+            }
+        });
         presenter.start();
     }
 
@@ -78,29 +86,29 @@ public class MainHomeAccList extends ABaseFragment<MainHomeAccListContract.Prese
     public void setGameList(List<AccBean> hotGameList) {
         Log.e("TAG", "setGameList = " + hotGameList.size());
         localHotGameList.clear();
-        for (int i = 0; i < hotGameList.size(); i++) {
-            if (type == 0) {//安卓
-                if (hotGameList.get(i).system == 0) {
-                    localHotGameList.add(hotGameList.get(i));
-                }
-            } else {//苹果
-                if (hotGameList.get(i).system == 1) {
-                    localHotGameList.add(hotGameList.get(i));
-                }
-            }
-        }
+        localHotGameList.addAll(hotGameList);
         adapter.notifyDataSetChanged();
         if (localHotGameList.size() <= 0) {
-            binding.recyclerView.setVisibility(View.GONE);
+            binding.srl.setVisibility(View.GONE);
             binding.llHomehotgameNodata.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             binding.llHomehotgameNodata.setVisibility(View.GONE);
-            binding.recyclerView.setVisibility(View.VISIBLE);
+            binding.srl.setVisibility(View.VISIBLE);
         }
     }
 
     @Override
-    public void setNoData(int type) {
+    public void notifyItemRangeChanged(int positionStart, int itemCount) {
+        if (positionStart == 0 && itemCount == 0) {
+            adapter.notifyDataSetChanged();
+        } else {
+            adapter.notifyItemRangeChanged(positionStart, itemCount);
+        }
+    }
+
+    @Override
+    public SmartRefreshLayout getSrl() {
+        return binding.srl;
     }
 
     @Override

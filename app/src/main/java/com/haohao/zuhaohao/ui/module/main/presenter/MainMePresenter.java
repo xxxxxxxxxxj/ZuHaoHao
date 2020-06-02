@@ -1,9 +1,6 @@
 package com.haohao.zuhaohao.ui.module.main.presenter;
 
-import android.util.Log;
-
 import com.blankj.utilcode.util.ToastUtils;
-import com.hwangjr.rxbus.RxBus;
 import com.haohao.zuhaohao.AppConstants;
 import com.haohao.zuhaohao.data.db.help.UserBeanHelp;
 import com.haohao.zuhaohao.data.network.rx.RxSchedulers;
@@ -12,6 +9,7 @@ import com.haohao.zuhaohao.data.network.service.ApiUserNewService;
 import com.haohao.zuhaohao.ui.module.base.ABaseSubscriber;
 import com.haohao.zuhaohao.ui.module.main.contract.MainMeContract;
 import com.haohao.zuhaohao.ui.module.user.model.AcctManageBean;
+import com.hwangjr.rxbus.RxBus;
 
 import javax.inject.Inject;
 
@@ -47,11 +45,7 @@ public class MainMePresenter extends MainMeContract.Presenter {
     public void updateUserBean() {
         RxBus.get().post(AppConstants.RxBusAction.TAG_MAIN_ME2, true);
         if (userBeanHelp.getUserBean() != null) {
-            Log.e("TAG","1111");
             doAccountInfo();
-            hasUnreadMessage();
-        }else{
-            Log.e("TAG","2222");
         }
     }
 
@@ -76,24 +70,4 @@ public class MainMePresenter extends MainMeContract.Presenter {
                     }
                 });
     }
-
-
-    //查询是否有未读消息
-    private void hasUnreadMessage() {
-        api8Service.hasUnreadMessage(userBeanHelp.getAuthorization())
-                .compose(RxSchedulers.io_main_business())
-                .as(mView.bindLifecycle())
-                .subscribe(new ABaseSubscriber<Boolean>() {
-                    @Override
-                    protected void onSuccess(Boolean isNewMsg) {
-                        mView.updateIsNewMsg(isNewMsg);
-                    }
-
-                    @Override
-                    protected void onError(String errStr) {
-
-                    }
-                });
-    }
-
 }

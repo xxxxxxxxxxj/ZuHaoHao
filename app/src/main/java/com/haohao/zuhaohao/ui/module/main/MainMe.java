@@ -107,10 +107,4 @@ public class MainMe extends ABaseFragment<MainMeContract.Presenter> implements M
         isShowOk = aBoolean;
         presenter.updateUserBean();
     }
-
-    @Override
-    public void updateIsNewMsg(boolean isNewMsg) {
-        //是否有新消息
-        binding.vMsgNew.setVisibility(isNewMsg ? View.VISIBLE : View.GONE);
-    }
 }

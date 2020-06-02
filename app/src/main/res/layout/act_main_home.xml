@@ -25,151 +25,63 @@
                 android:id="@+id/appbar"
                 layout="@layout/act_main_home_search_title" />
 
-            <com.haohao.zuhaohao.ui.views.NoDataView
-                android:id="@+id/ndv"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:visibility="gone" />
-
-            <com.haohao.zuhaohao.ui.views.StickLayout
-                android:id="@+id/sl"
+            <androidx.coordinatorlayout.widget.CoordinatorLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <LinearLayout
+                <com.google.android.material.appbar.AppBarLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="13dip"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content">
 
-                    <com.tmall.ultraviewpager.UltraViewPager
-                        android:id="@+id/uvp_banner"
+                    <com.google.android.material.appbar.CollapsingToolbarLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        app:upv_ratio="2.46" />
-                </LinearLayout>
+                        android:background="@color/white"
+                        android:paddingLeft="15dip"
+                        android:paddingTop="20dip"
+                        android:paddingRight="15dip"
+                        app:contentScrim="@color/white"
+                        app:layout_scrollFlags="scroll">
 
-                <LinearLayout
-                    android:id="@+id/ll_mainhome_rmzh"
-                    android:layout_width="match_parent"
-                    android:visibility="gone"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:orientation="vertical">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            android:id="@+id/tv_more"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_marginRight="10dip"
-                            android:layout_centerVertical="true"
-                            android:drawableEnd="@mipmap/common_icon_arrow_r_min"
-                            android:text="更多游戏"
-                            android:textColor="#999999" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dip"
-                            android:layout_marginBottom="15dip"
-                            android:text="热门租号"
-                            android:layout_centerVertical="true"
-                            android:textColor="@color/black"
-                            android:textSize="17sp"
-                            android:textStyle="bold" />
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/rv_mainhome_rmzh"
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="13dip"
+                            android:orientation="vertical">
 
-                    </RelativeLayout>
-                </LinearLayout>
+                            <com.tmall.ultraviewpager.UltraViewPager
+                                android:id="@+id/uvp_banner"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                app:upv_ratio="2.46" />
+                        </LinearLayout>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerview"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    android:background="#ffffff"
-                    android:nestedScrollingEnabled="false"
-                    android:padding="8dp" />
+                    </com.google.android.material.appbar.CollapsingToolbarLayout>
+                    <!--悬停的tab-->
+                    <com.google.android.material.tabs.TabLayout
+                        android:id="@+id/tab_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:tabBackground="@color/white"
+                        app:tabGravity="fill"
+                        app:tabIndicatorColor="@color/app_default_blue"
+                        app:tabIndicatorFullWidth="false"
+                        app:tabMaxWidth="0dp"
+                        app:tabRippleColor="@color/transparent"
+                        app:tabSelectedTextColor="@color/a333333"
+                        app:tabTextColor="@color/a999999"
+                        app:wkp_stick="true" />
 
-                <TextView
-                    android:id="@+id/tv_hot_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#ffffff"
-                    android:maxLines="1"
-                    android:padding="13dp"
-                    android:paddingTop="2dp"
-                    android:text="热销榜单"
-                    android:textColor="#111111"
-                    android:textSize="17sp"
-                    android:textStyle="bold"
-                    android:visibility="gone" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_hot"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#ffffff"
-                    android:paddingBottom="5dp"
-                    android:visibility="gone" />
-
-                <TextView
-                    android:id="@+id/tv_welfare_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#ffffff"
-                    android:maxLines="1"
-                    android:padding="13dp"
-                    android:paddingTop="2dp"
-                    android:text="福利中心"
-                    android:textColor="#111111"
-                    android:textSize="17sp"
-                    android:textStyle="bold"
-                    android:visibility="gone" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_welfare"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#ffffff"
-                    android:paddingBottom="8dp"
-                    android:visibility="gone" />
-
-                <com.google.android.material.tabs.TabLayout
-                    android:id="@+id/tab_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:tabBackground="@color/white"
-                    app:tabGravity="fill"
-                    app:tabIndicatorColor="@color/app_default_blue"
-                    app:tabIndicatorFullWidth="false"
-                    app:tabMaxWidth="0dp"
-                    app:tabRippleColor="@color/transparent"
-                    app:tabSelectedTextColor="@color/a333333"
-                    app:tabTextColor="@color/a999999"
-                    app:wkp_stick="true" />
+                </com.google.android.material.appbar.AppBarLayout>
 
                 <androidx.viewpager.widget.ViewPager
                     android:id="@+id/viewpager"
                     android:layout_width="match_parent"
-                    android:layout_height="2000dip"
-                    android:background="@color/white" />
-            </com.haohao.zuhaohao.ui.views.StickLayout>
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            </androidx.coordinatorlayout.widget.CoordinatorLayout>
         </LinearLayout>
     </FrameLayout>
 </layout>

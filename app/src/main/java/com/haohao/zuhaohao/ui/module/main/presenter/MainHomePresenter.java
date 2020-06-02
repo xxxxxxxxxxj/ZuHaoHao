@@ -112,7 +112,6 @@ public class MainHomePresenter extends MainHomeContract.Presenter {
                         .navigation();
                 break;
         }
-
     }
 
     //首页banner点击

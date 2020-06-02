@@ -36,6 +36,7 @@
             <TextView
                 android:id="@+id/tv_tool3"
                 style="@style/act_me_btn_item"
+                android:visibility="gone"
                 android:drawableTop="@mipmap/ic_me_help"
                 android:text="帮助中心" />
 
@@ -49,6 +50,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:orientation="horizontal">
 
             <TextView

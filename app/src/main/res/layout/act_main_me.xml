@@ -73,6 +73,7 @@
                 android:onClick="@{context::onViewClicked}"
                 android:paddingStart="8dp"
                 android:paddingTop="12dp"
+                android:visibility="gone"
                 android:paddingEnd="16dp"
                 android:paddingBottom="12dp"
                 app:layout_constraintBottom_toBottomOf="parent"

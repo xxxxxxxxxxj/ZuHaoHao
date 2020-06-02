@@ -42,7 +42,7 @@ public class MainGameTypePresenter extends MainGameTypeContract.Presenter {
         //请求网络，为了用户体验，而且总数据不多的情况，使用一次性请求全部
         //如果没有数据 则进行请求
         if (gameTypes.size() == 0) {
-            doRentPage();
+            //doRentPage();
         }
     }
 

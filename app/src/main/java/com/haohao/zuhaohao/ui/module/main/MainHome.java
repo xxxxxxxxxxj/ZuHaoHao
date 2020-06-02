@@ -11,8 +11,6 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.blankj.utilcode.util.ConvertUtils;
@@ -25,19 +23,11 @@ import com.haohao.zuhaohao.ui.module.account.model.GameBean;
 import com.haohao.zuhaohao.ui.module.base.ABaseFragment;
 import com.haohao.zuhaohao.ui.module.base.BaseDataCms;
 import com.haohao.zuhaohao.ui.module.main.adapter.HomeBannerAdapter;
-import com.haohao.zuhaohao.ui.module.main.adapter.HomeGameAdapter;
-import com.haohao.zuhaohao.ui.module.main.adapter.HomeHotAdapter;
-import com.haohao.zuhaohao.ui.module.main.adapter.HomeHotRentAdapter;
-import com.haohao.zuhaohao.ui.module.main.adapter.HomeWelfareAdapter;
 import com.haohao.zuhaohao.ui.module.main.contract.MainHomeContract;
 import com.haohao.zuhaohao.ui.module.main.model.BannerBean;
 import com.haohao.zuhaohao.ui.module.main.model.HomeMultipleItem;
 import com.haohao.zuhaohao.ui.module.main.model.WelfareBean;
 import com.haohao.zuhaohao.ui.module.main.presenter.MainHomePresenter;
-import com.haohao.zuhaohao.ui.views.GridSpacingItemDecoration;
-import com.haohao.zuhaohao.ui.views.NoScollFullGridLayoutManager;
-import com.haohao.zuhaohao.utlis.GallerySnapHelper;
-import com.haohao.zuhaohao.utlis.myDividerItemDecoration;
 import com.tmall.ultraviewpager.UltraViewPager;
 import com.umeng.analytics.MobclickAgent;
 
@@ -71,27 +61,8 @@ public class MainHome extends ABaseFragment<MainHomeContract.Presenter> implemen
         return binding.getRoot();
     }
 
-
-    @Inject
-    HomeGameAdapter adapter;
-
     @Inject
     HomeBannerAdapter bannerAdapter;
-
-    @Inject
-    HomeHotAdapter hotAdapter;
-
-    @Inject
-    HomeWelfareAdapter welfareAdapter;
-
-    @Inject
-    GallerySnapHelper mGalleryHotSnapHelper;
-
-    @Inject
-    GallerySnapHelper mGalleryWelfareSnapHelper;
-
-    @Inject
-    HomeHotRentAdapter mHomeHotRentAdapter;
     private List<MainHomeAccList> fragmentList = new ArrayList<MainHomeAccList>();
     private String[] strings = new String[]{"安卓", "苹果"};
 
@@ -112,50 +83,10 @@ public class MainHome extends ABaseFragment<MainHomeContract.Presenter> implemen
         MyAdapter fragmentAdater = new MyAdapter(getChildFragmentManager());
         binding.viewpager.setOffscreenPageLimit(2);
         binding.viewpager.setAdapter(fragmentAdater);
-        binding.tabLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                binding.tabLayout.setupWithViewPager(binding.viewpager);
-            }
-        });
-        //热门租号
-        binding.rvMainhomeRmzh.setHasFixedSize(true);
-        binding.rvMainhomeRmzh.setNestedScrollingEnabled(false);
-        NoScollFullGridLayoutManager noScollFullGridLayoutManager = new
-                NoScollFullGridLayoutManager(binding.rvMainhomeRmzh, getActivity(), 5, GridLayoutManager.VERTICAL, false);
-        noScollFullGridLayoutManager.setScrollEnabled(false);
-        binding.rvMainhomeRmzh.setLayoutManager(noScollFullGridLayoutManager);
-        binding.rvMainhomeRmzh.setAdapter(mHomeHotRentAdapter);
-        binding.rvMainhomeRmzh.addItemDecoration(new GridSpacingItemDecoration(5,
-                getResources().getDimensionPixelSize(R.dimen.horizontalSpacing10),
-                getResources().getDimensionPixelSize(R.dimen.horizontalSpacing10),
-                true));
-        mHomeHotRentAdapter.setOnItemClickListener((adapter, view, position) -> presenter.doHotRetnClick(position));
+        binding.tabLayout.setupWithViewPager(binding.viewpager);
 
         //banner
         initUltraViewPager(binding.uvpBanner, position -> presenter.doBannerClick(position));
-        //game
-        binding.recyclerview.setLayoutManager(new GridLayoutManager(getContext(), 4));
-        binding.recyclerview.setAdapter(adapter);
-        adapter.setSpanSizeLookup((gridLayoutManager, position) -> (adapter.getData().get(position).getItemType() == HomeMultipleItem.TYPE_ACCOUNT_LIST ? 1 : 4));
-        adapter.setOnItemClickListener((adapter, view, position) -> presenter.onItemClick(position));
-        //间距
-        myDividerItemDecoration decoration = new myDividerItemDecoration(getContext());
-
-        binding.rvHot.addItemDecoration(decoration);
-        binding.rvWelfare.addItemDecoration(decoration);
-        //热销
-        binding.rvHot.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        binding.rvHot.setAdapter(hotAdapter);
-        hotAdapter.setOnItemClickListener((adapter, view, position) -> presenter.onItemHotClick(position));
-        mGalleryHotSnapHelper.attachToRecyclerView(binding.rvHot);
-        //福利中心
-        binding.rvWelfare.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        binding.rvWelfare.setAdapter(welfareAdapter);
-        welfareAdapter.setOnItemClickListener((adapter, view, position) -> presenter.onItemWelfareClick(position));
-        mGalleryWelfareSnapHelper.attachToRecyclerView(binding.rvWelfare);
-        //加载空白
-        binding.ndv.setOnClickListener(v -> presenter.start());
     }
 
     @Override
@@ -180,30 +111,10 @@ public class MainHome extends ABaseFragment<MainHomeContract.Presenter> implemen
         //第一个是banner
         bannerAdapter.repData(bannerList);
         binding.uvpBanner.refresh();
-        adapter.replaceData(list);
-        //热销商品
-        if (hotList != null && hotList.size() > 0) {
-            binding.tvHotTitle.setVisibility(View.GONE);
-            binding.rvHot.setVisibility(View.GONE);
-            hotAdapter.replaceData(hotList);
-        }
-        //福利中心
-        if (welfareList != null && welfareList.size() > 0) {
-            binding.tvWelfareTitle.setVisibility(View.VISIBLE);
-            binding.rvWelfare.setVisibility(View.VISIBLE);
-            welfareAdapter.replaceData(welfareList);
-        }
-        //热门租号
-        if (hotRentList != null && hotRentList.size() > 0) {
-            binding.llMainhomeRmzh.setVisibility(View.VISIBLE);
-            mHomeHotRentAdapter.replaceData(hotRentList);
-        }
     }
-
 
     @Override
     public void setNoData(int type) {
-        binding.ndv.setType(type);
     }
 
 
