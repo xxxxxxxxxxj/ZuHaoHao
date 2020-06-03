@@ -1,6 +1,7 @@
 package com.haohao.zuhaohao;
 
 import android.app.Activity;
+import android.app.Application;
 import android.content.BroadcastReceiver;
 import android.os.Environment;
 import android.text.TextUtils;
@@ -43,7 +44,11 @@ import dagger.android.HasBroadcastReceiverInjector;
  * author：Seraph
  **/
 public class AppApplication extends MultiDexApplication implements HasActivityInjector, HasBroadcastReceiverInjector {
+    private static Application sApplication;
 
+    public static Application getInstance(){
+        return sApplication;
+    }
 
     static {
         //下拉刷新头部动画
@@ -64,6 +69,7 @@ public class AppApplication extends MultiDexApplication implements HasActivityIn
     @Override
     public void onCreate() {
         super.onCreate();
+        sApplication = this;
 //        if (LeakCanary.isInAnalyzerProcess(this)) {
 //            return;
 //        }

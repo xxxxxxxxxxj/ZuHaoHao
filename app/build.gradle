@@ -380,6 +380,9 @@ dependencies {
     implementation 'cn.jiguang.sdk:jcore:1.2.6'
 
     compile 'com.github.franmontiel:PersistentCookieJar:v1.0.1'
+    //阿里云oss文件存储服务
+    compile 'com.aliyun.dpa:oss-android-sdk:+'
+
 
 
     //    //内存泄漏检测

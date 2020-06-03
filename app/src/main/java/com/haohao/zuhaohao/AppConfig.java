@@ -9,6 +9,21 @@ import com.blankj.utilcode.util.MetaDataUtils;
  **/
 public class AppConfig {
     /**
+     * 阿里云oss对象存储服务配置相关参数
+     */
+    // 访问的endpoint地址
+    public static final String OSS_ENDPOINT = "http://oss-cn-shanghai.aliyuncs.com";
+    //callback 测试地址
+    public static final String OSS_CALLBACK_URL = "http://oss-demo.aliyuncs.com:23450";
+    // STS 鉴权服务器地址。
+    // 或者根据工程sts_local_server目录中本地鉴权服务脚本代码启动本地STS鉴权服务器。
+    public static final String STS_SERVER_URL = "http://****/sts/getsts";//STS 地址
+
+    public static final String BUCKET_NAME = "test-haohao-20200603";
+    public static final String OSS_ACCESS_KEY_ID = "<yourAccessKeyId>";
+    ;
+    public static final String OSS_ACCESS_KEY_SECRET = "<yourAccessKeySecret>";
+    /**
      * 王者荣耀游戏ID
      */
     public static final String GAME_ID = "302";

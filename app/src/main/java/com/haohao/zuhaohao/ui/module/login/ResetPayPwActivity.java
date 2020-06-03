@@ -93,7 +93,7 @@ public class ResetPayPwActivity extends ABaseActivity<ResetPayPwPresenter> imple
 //                binding.etPhone.setText("");
 //                break;
             case R.id.tv_get_code://获取验证码
-                getCode();
+                //getCode();
                 gotoVerifyFullScreenActivity("");
                 break;
             case R.id.btn_ok:

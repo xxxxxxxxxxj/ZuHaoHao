@@ -58,7 +58,6 @@ public class UserInfoActivity extends ABaseActivity<UserInfoContract.Presenter> 
         binding.appbar.toolbar.setTitle("个人资料");
     }
 
-
     @Override
     protected void onResume() {
         super.onResume();

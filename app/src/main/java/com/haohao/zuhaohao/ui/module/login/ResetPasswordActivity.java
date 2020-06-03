@@ -77,6 +77,15 @@ public class ResetPasswordActivity extends ABaseActivity<ResetPasswordContract.P
                 binding.etPhone.setText("");
                 break;
             case R.id.tv_get_code://获取验证码
+                 String phone1 = binding.etPhone.getText().toString().trim();
+                if (StringUtils.isEmpty(phone1)) {
+                    ToastUtils.showShort("请输入手机号");
+                    return;
+                }
+                if (!RegexUtils.isMobileSimple(phone1)) {
+                    ToastUtils.showShort("请输入正确的手机号");
+                    return;
+                }
                 gotoVerifyFullScreenActivity("");
                 break;
             case R.id.btn_ok:
@@ -84,6 +93,10 @@ public class ResetPasswordActivity extends ABaseActivity<ResetPasswordContract.P
                 String code = binding.etCode.getText().toString().trim();
                 String password = binding.etNewPassword.getText().toString().trim();
                 String phone = binding.etPhone.getText().toString().trim();
+                if (StringUtils.isEmpty(phone)) {
+                    ToastUtils.showShort("请输入手机号");
+                    return;
+                }
                 if (!RegexUtils.isMobileSimple(phone)) {
                     ToastUtils.showShort("请输入正确的手机号");
                     return;
