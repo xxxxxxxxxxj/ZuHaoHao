@@ -9,20 +9,17 @@ static def getDate() {
     return formattedDate
 }
 
-def verCode = 1
-
-
 android {
-    compileSdkVersion 28
-    buildToolsVersion '29.0.0 rc2'
+    //编译SDK的版本
+    compileSdkVersion project.ANDROID_BUILD_SDK_VERSION as int
+    //构建工作的版本
+    buildToolsVersion project.ANDROID_BUILD_TOOLS_VERSION
     defaultConfig {
-        applicationId "com.haohao.zuhaohao"
-        minSdkVersion 19
-        targetSdkVersion 28
-        //versionCode 1
-        //versionName "1.0"
-        versionCode verCode
-        versionName APP_VERSION
+        applicationId project.APPLICATION_ID // lib项目不需要配置这一项
+        versionCode project.VERSION_CODE as int
+        versionName project.VERSION_NAME
+        minSdkVersion project.ANDROID_BUILD_MIN_SDK_VERSION as int
+        targetSdkVersion project.ANDROID_BUILD_TARGET_SDK_VERSION as int
         flavorDimensions "versionCode"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         android.defaultConfig.vectorDrawables.useSupportLibrary = true
@@ -100,54 +97,40 @@ android {
                 timeNow = BUILD_TIME
                 //BUILD_PATH为服务器输出路径
                 outDirectory = BUILD_PATH
-                //Xubei-v1.0.1-xiaomi-release.apk
-                //newName = 'Xubei-jenkins-v' + APP_VERSION + '-' + variant.productFlavors[0].name + '-' + variant.buildType.name + '.apk'
-                newName = 'Xubei-jenkins-v' + APP_VERSION + '-' + variant.buildType.name + '.apk'
-                outputFileName = new File("../../../xubei" + '/' + timeNow, newName)
+                //haohao-v1.0.1-xiaomi-release.apk
+                //newName = 'haohao-jenkins-v' + VERSION_NAME + '-' + variant.productFlavors[0].name + '-' + variant.buildType.name + '.apk'
+                newName = 'haohao-jenkins-v' + VERSION_NAME + '-' + variant.buildType.name + '.apk'
+                outputFileName = new File("../../../haohao" + '/' + timeNow, newName)
             } else {
                 //本机打包输出在本机路径
                 timeNow = getDate()
                 outDirectory = output.outputFile.getParent()
                 if ('debug'.equals(variant.buildType.name)) {
-                    newName = "Xubei-v${APP_VERSION}-debug.apk"
+                    newName = "haohao-v${VERSION_NAME}-debug.apk"
                 } else {
-                    //xubei_v1.0.1_release.apk
-                    newName = 'xubei_v' + APP_VERSION + "_" + name + '.apk'
+                    //haohao_v1.0.1_release.apk
+                    newName = 'haohao_v' + VERSION_NAME + "_" + name + '.apk'
                 }
                 outputFileName = new File(newName)
             }
         }
     }
     signingConfigs {// 自动化打包配置
-        xubeiConfig {
+        haohaoConfig {
             keyAlias project.KEY_ALIAS
             keyPassword project.KEY_PASSWORD
             storeFile file('../key_haohao_zuhaohao.jks')
             storePassword project.STORE_PASSWORD
         }
     }
-    /*signingConfigs {
-        xubeiConfig {
-            keyAlias 'xubei'
-            keyPassword 'xubei.com'
-            if ("true".equals(IS_JENKINS)) {
-                storeFile file('/var/jenkins_home/apps_dir/android/xubei/xubei.jks')
-            } else {
-                // /Users/xiongj/Documents/xubei.jks
-                // C:/xubei.jks
-                //storeFile file('C:/xubei.jks')
-            }
-            storePassword 'xubei.com'
-        }
-    }*/
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.xubeiConfig
+            signingConfig signingConfigs.haohaoConfig
         }
         debug {
-            signingConfig signingConfigs.xubeiConfig
+            signingConfig signingConfigs.haohaoConfig
         }
     }
     //配置目录指向
