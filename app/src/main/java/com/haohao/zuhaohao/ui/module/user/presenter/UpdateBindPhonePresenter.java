@@ -11,11 +11,15 @@ import com.haohao.zuhaohao.data.network.service.ApiUserNewService;
 import com.haohao.zuhaohao.ui.module.base.ABaseSubscriber;
 import com.haohao.zuhaohao.ui.module.user.contract.UpdateBindPhoneContract;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
 import io.reactivex.Flowable;
+import okhttp3.RequestBody;
 
 /**
  * 更改绑定手机
@@ -82,7 +86,19 @@ public class UpdateBindPhonePresenter extends UpdateBindPhoneContract.Presenter 
 
     //获取验证码
     public void onGetCode(String phone, String ticket) {
-        apiCommonService.sendCode(phone, ticket, AppConfig.getChannelValue(), null)
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("mobile", phone);
+            jsonObject.put("ticket", ticket);
+            jsonObject.put("businessNo", AppConfig.getChannelValue());
+            jsonObject.put("businessId", null);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            ToastUtils.showShort("提交数据错误");
+            return;
+        }
+        RequestBody jsonBody = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), jsonObject.toString());
+        apiCommonService.sendCode(jsonBody)
                 .compose(RxSchedulers.io_main_business())
                 .doOnSubscribe(subscription -> mView.showLoading("获取验证码").setOnDismissListener(dialog -> subscription.cancel()))
                 .as(mView.bindLifecycle())

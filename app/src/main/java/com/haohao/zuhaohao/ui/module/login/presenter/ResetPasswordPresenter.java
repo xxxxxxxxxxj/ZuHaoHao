@@ -8,11 +8,15 @@ import com.haohao.zuhaohao.data.network.service.ApiPassportService;
 import com.haohao.zuhaohao.ui.module.base.ABaseSubscriber;
 import com.haohao.zuhaohao.ui.module.login.contract.ResetPasswordContract;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
 import io.reactivex.Flowable;
+import okhttp3.RequestBody;
 
 /**
  * 验证手机号逻辑
@@ -62,8 +66,20 @@ public class ResetPasswordPresenter extends ResetPasswordContract.Presenter {
 
 
     public void onGetCode(String phone, String ticket) {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("mobile", phone);
+            jsonObject.put("ticket", ticket);
+            jsonObject.put("businessNo", AppConfig.getChannelValue());
+            jsonObject.put("businessId", 3);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            ToastUtils.showShort("提交数据错误");
+            return;
+        }
+        RequestBody jsonBody = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), jsonObject.toString());
         //获取验证码
-        apiCommonService.sendCode(phone, ticket, AppConfig.getChannelValue(),3)
+        apiCommonService.sendCode(jsonBody)
                 .compose(RxSchedulers.io_main_business())
                 .doOnSubscribe(subscription -> mView.showLoading("获取验证码").setOnDismissListener(dialog -> subscription.cancel()))
                 .as(mView.bindLifecycle())

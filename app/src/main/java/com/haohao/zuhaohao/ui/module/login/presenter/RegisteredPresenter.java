@@ -11,11 +11,15 @@ import com.haohao.zuhaohao.ui.module.base.ABaseSubscriber;
 import com.haohao.zuhaohao.ui.module.login.contract.RegisteredContract;
 import com.haohao.zuhaohao.ui.module.login.model.UserBean;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
 import io.reactivex.Flowable;
+import okhttp3.RequestBody;
 
 /**
  * 注册逻辑
@@ -58,7 +62,7 @@ public class RegisteredPresenter extends RegisteredContract.Presenter {
 
     //获取url连接验证
     public void onVerifyImageCode() {
-        apiCommonService.getUrl(AppConfig.CLIENT_TYPE,2)
+        apiCommonService.getUrl(AppConfig.CLIENT_TYPE, 2)
                 .compose(RxSchedulers.io_main_business())
                 .doOnSubscribe(subscription -> mView.showLoading().setOnDismissListener(dialog -> subscription.cancel()))
                 .as(mView.bindLifecycle())
@@ -71,9 +75,9 @@ public class RegisteredPresenter extends RegisteredContract.Presenter {
 
                     @Override
                     public void onError(String errStr) {
-                        if ("601".equals(errStr)){
+                        if ("601".equals(errStr)) {
                             mView.doGetCode();
-                        }else {
+                        } else {
                             mView.hideLoading();
                             ToastUtils.showShort(errStr);
                         }
@@ -83,7 +87,19 @@ public class RegisteredPresenter extends RegisteredContract.Presenter {
 
     //获取验证码
     public void onGetCode(String phone, String ticket) {
-        apiCommonService.sendCode(phone, ticket, AppConfig.getChannelValue(),2)
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("mobile", phone);
+            jsonObject.put("ticket", ticket);
+            jsonObject.put("businessNo", AppConfig.getChannelValue());
+            jsonObject.put("businessId", "2");
+        } catch (JSONException e) {
+            e.printStackTrace();
+            ToastUtils.showShort("提交数据错误");
+            return;
+        }
+        RequestBody jsonBody = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), jsonObject.toString());
+        apiCommonService.sendCode(jsonBody)
                 .compose(RxSchedulers.io_main_business())
                 .doOnSubscribe(subscription -> mView.showLoading().setOnDismissListener(dialog -> subscription.cancel()))
                 .as(mView.bindLifecycle())

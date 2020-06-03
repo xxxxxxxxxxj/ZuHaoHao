@@ -58,7 +58,7 @@ public class FileUploadHelp {
      * 初始化和生成公共构建部分
      * @param params 表单
      */
-    private static MultipartBody.Builder initParamsBuilder(Map<String, String> params){
+    public static MultipartBody.Builder initParamsBuilder(Map<String, String> params){
         MultipartBody.Builder requestBodyBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM);
         if (params != null) {
             Set<String> paramsKeys = params.keySet();

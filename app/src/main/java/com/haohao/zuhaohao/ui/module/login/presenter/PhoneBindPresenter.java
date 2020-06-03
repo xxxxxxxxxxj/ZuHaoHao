@@ -2,7 +2,6 @@ package com.haohao.zuhaohao.ui.module.login.presenter;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.blankj.utilcode.util.ToastUtils;
-import com.hwangjr.rxbus.RxBus;
 import com.haohao.zuhaohao.AppConfig;
 import com.haohao.zuhaohao.AppConstants;
 import com.haohao.zuhaohao.data.network.rx.RxSchedulers;
@@ -11,12 +10,17 @@ import com.haohao.zuhaohao.data.network.service.ApiPassportService;
 import com.haohao.zuhaohao.di.QualifierType;
 import com.haohao.zuhaohao.ui.module.base.ABaseSubscriber;
 import com.haohao.zuhaohao.ui.module.login.contract.PhoneBindContract;
+import com.hwangjr.rxbus.RxBus;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
 import io.reactivex.Flowable;
+import okhttp3.RequestBody;
 
 /**
  * 手机绑定
@@ -94,7 +98,19 @@ public class PhoneBindPresenter extends PhoneBindContract.Presenter {
 
     //获取验证码
     public void onGetCode(String phone, String ticket) {
-        apiCommonService.sendCode(phone, ticket, AppConfig.getChannelValue(), 2)
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("mobile", phone);
+            jsonObject.put("ticket", ticket);
+            jsonObject.put("businessNo", AppConfig.getChannelValue());
+            jsonObject.put("businessId", 2);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            ToastUtils.showShort("提交数据错误");
+            return;
+        }
+        RequestBody jsonBody = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), jsonObject.toString());
+        apiCommonService.sendCode(jsonBody)
                 .compose(RxSchedulers.io_main_business())
                 .doOnSubscribe(subscription -> mView.showLoading("获取验证码").setOnDismissListener(dialog -> subscription.cancel()))
                 .as(mView.bindLifecycle())

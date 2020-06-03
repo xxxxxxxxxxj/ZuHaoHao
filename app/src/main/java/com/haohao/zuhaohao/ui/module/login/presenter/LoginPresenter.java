@@ -26,6 +26,9 @@ import com.haohao.zuhaohao.ui.module.login.model.UserBean;
 import com.haohao.zuhaohao.ui.module.main.MainActivity;
 import com.haohao.zuhaohao.utlis.Tools;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
@@ -35,6 +38,7 @@ import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.PlatformDb;
 import io.reactivex.Flowable;
+import okhttp3.RequestBody;
 
 /**
  * 登录逻辑
@@ -336,7 +340,19 @@ public class LoginPresenter extends LoginContract.Presenter {
 
     //发送验证码
     public void onGetCode(String phone, String ticket) {
-        apiCommonService.sendCode(phone, ticket, AppConfig.getChannelValue(), 1)
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("mobile", phone);
+            jsonObject.put("ticket", ticket);
+            jsonObject.put("businessNo", AppConfig.getChannelValue());
+            jsonObject.put("businessId", 1);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            ToastUtils.showShort("提交数据错误");
+            return;
+        }
+        RequestBody jsonBody = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), jsonObject.toString());
+        apiCommonService.sendCode(jsonBody)
                 .compose(RxSchedulers.io_main_business())
                 .doOnSubscribe(subscription -> mView.showLoading("获取验证码").setOnDismissListener(dialog -> subscription.cancel()))
                 .as(mView.bindLifecycle())
