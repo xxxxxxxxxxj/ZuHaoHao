@@ -361,7 +361,7 @@ dependencies {
     //极光推送
     implementation 'cn.jiguang.sdk:jpush:3.1.7'
     implementation 'cn.jiguang.sdk:jcore:1.2.6'
-
+    //cookie持久化jar包
     compile 'com.github.franmontiel:PersistentCookieJar:v1.0.1'
     //阿里云oss文件存储服务
     compile 'com.aliyun.dpa:oss-android-sdk:+'

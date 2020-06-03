@@ -1,7 +1,6 @@
 package com.haohao.zuhaohao.ui.module.user.presenter;
 
 import android.net.Uri;
-import android.util.Log;
 
 import com.alibaba.sdk.android.oss.ClientConfiguration;
 import com.alibaba.sdk.android.oss.OSS;
@@ -15,6 +14,7 @@ import com.haohao.zuhaohao.data.db.help.UserBeanHelp;
 import com.haohao.zuhaohao.data.db.table.UserTable;
 import com.haohao.zuhaohao.data.network.FileUploadHelp;
 import com.haohao.zuhaohao.data.network.rx.RxSchedulers;
+import com.haohao.zuhaohao.data.network.service.ApiCommonService;
 import com.haohao.zuhaohao.data.network.service.ApiGoodsService;
 import com.haohao.zuhaohao.data.network.service.ApiUserNewService;
 import com.haohao.zuhaohao.oss.OssService;
@@ -22,10 +22,11 @@ import com.haohao.zuhaohao.ui.module.base.ABaseSubscriber;
 import com.haohao.zuhaohao.ui.module.base.BaseData;
 import com.haohao.zuhaohao.ui.module.user.contract.UserInfoContract;
 import com.haohao.zuhaohao.ui.module.user.model.AcctManageBean;
-import com.haohao.zuhaohao.utlis.PathUtils;
 import com.haohao.zuhaohao.utlis.TakePhoto;
 
 import java.io.File;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -44,21 +45,25 @@ public class UserInfoPresenter extends UserInfoContract.Presenter {
     private ApiUserNewService apiUserNewService;
 
     private ApiGoodsService apiGoodsService;
+    private ApiCommonService apiCommonService;
 
     private TakePhoto mTakePhoto;
     private OssService ossService;
 
     @Inject
-    UserInfoPresenter(UserBeanHelp userBeanHelp, ApiUserNewService apiUserNewService, ApiGoodsService apiGoodsService, TakePhoto takePhoto) {
+    UserInfoPresenter(UserBeanHelp userBeanHelp, ApiUserNewService apiUserNewService, ApiGoodsService apiGoodsService, TakePhoto takePhoto, ApiCommonService apiCommonService) {
         this.userBeanHelp = userBeanHelp;
         this.apiGoodsService = apiGoodsService;
         this.mTakePhoto = takePhoto;
         this.apiUserNewService = apiUserNewService;
+        this.apiCommonService = apiCommonService;
     }
 
     @Override
     public void start() {
-        ossService = initOSS();
+        /*ossService = initOSS();
+        //设置上传的callback地址，目前暂时只支持putObject的回调
+        ossService.setCallbackAddress(AppConfig.OSS_CALLBACK_URL);*/
         updateUserBean();
     }
 
@@ -111,25 +116,24 @@ public class UserInfoPresenter extends UserInfoContract.Presenter {
 
     //图片剪切返回
     public void onUCropResult(Uri output) {
-        String path = PathUtils.getPath(mView.getContext(), output);
+        /*String path = PathUtils.getPath(mView.getContext(), output);
         String fileName = PathUtils.getFileName(path);
         Log.e("TAG", "path = " + path);
         Log.e("TAG", "fileName = " + fileName);
-        ossService.asyncPutImage(fileName, path);
-        /*//上传图片
+        ossService.asyncPutImage(fileName, path);*/
+        //上传图片
         try {
             upTempImage(new File(new URI(output.toString())));
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
-*/
     }
 
     //上传图片到服务器
     private void upTempImage(File file) {
         Map<String, File> fileParams = new HashMap<>();
         fileParams.put("file", file);
-        apiGoodsService.upTemp(FileUploadHelp.multipartRequestBody(null, fileParams))
+        apiCommonService.upTemp(FileUploadHelp.multipartRequestBody(null, fileParams))
                 .compose(RxSchedulers.io_main_business())
                 .doOnSubscribe(subscription -> mView.showLoading("上传图片").setOnDismissListener(dialog -> subscription.cancel()))
                 .as(mView.bindLifecycle())
@@ -137,7 +141,7 @@ public class UserInfoPresenter extends UserInfoContract.Presenter {
                     @Override
                     public void onSuccess(BaseData<String> stringBaseData) {
                         //得到上传后的网络地址，再更新到头像
-                        updataAvatar(stringBaseData.image_path);
+                        updataAvatar(stringBaseData.imagePath);
                     }
 
                     @Override

@@ -31,6 +31,10 @@ public class AppConfig {
      * 王者荣耀游戏名字
      */
     public static final String GAME_NAME = "穿越火线";
+    /**
+     * //1 端游  2手游
+     */
+    public static final String GAME_TYPE = "1";
 
     /**
      * 本地数据库名称

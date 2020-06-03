@@ -109,7 +109,7 @@ public class VerifyPopupActivity extends AppCompatActivity {
         // 建立JavaScript调用Java接口的桥梁。
         webview.addJavascriptInterface(new testJsInterface(), "testInterface");
         // 加载业务页面。
-        webview.loadUrl("file:///android_asset/verify.html");
+        webview.loadUrl(AppConstants.AgreementAction.VERIFY);
     }
 
     public class testJsInterface {

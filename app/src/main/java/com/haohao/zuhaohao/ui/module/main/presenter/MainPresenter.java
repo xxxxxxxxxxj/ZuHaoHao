@@ -60,7 +60,7 @@ public class MainPresenter extends MainContract.Presenter {
     //转跳租号界面
     public void doSelectLease() {
         //游戏列表
-        ARouter.getInstance().build(AppConstants.PagePath.ACC_LIST).withSerializable("bean", new GameBean(AppConfig.GAME_ID,AppConfig.GAME_NAME)).navigation();
+        ARouter.getInstance().build(AppConstants.PagePath.ACC_LIST).withSerializable("bean", new GameBean(AppConfig.GAME_ID,AppConfig.GAME_TYPE,AppConfig.GAME_NAME)).navigation();
     }
 
     /**

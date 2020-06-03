@@ -24,6 +24,7 @@ public class BaseData<T> {
     public T goods_status;
 
     public T imagepath;
+    public T imagePath;
 
     public T paramStr;
 

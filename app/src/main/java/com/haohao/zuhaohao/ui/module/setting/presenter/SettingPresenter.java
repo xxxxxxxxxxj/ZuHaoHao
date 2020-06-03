@@ -12,6 +12,7 @@ import com.haohao.zuhaohao.ui.module.setting.contract.SettingContract;
 import com.tencent.bugly.beta.Beta;
 
 import javax.inject.Inject;
+
 /**
  * 设置
  * date：2017/12/4 14:38
@@ -22,6 +23,8 @@ public class SettingPresenter extends SettingContract.Presenter {
     private UserBeanHelp userBeanHelp;
 
     private Application application;
+    /*@Inject
+    private ApiBuild apiBuild;*/
 
     @Inject
     SettingPresenter(Application application, UserBeanHelp userBeanHelp) {

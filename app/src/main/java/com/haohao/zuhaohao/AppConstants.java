@@ -206,13 +206,14 @@ public class AppConstants {
      * 协议对应的网站地址
      */
     public static final class AgreementAction {
-
         //服务与隐私条款
-        public final static String AGREEMENT = "http://app.xubei.com/privacy/index.html";
+        public final static String AGREEMENT = "file:///android_asset/privacy.html";
+
+        //滑块验证
+        public final static String VERIFY = "file:///android_asset/verify.html";
 
         //上号器步骤
         public final static String DEVICE_STEPS = "http://app.xubei.com/PrivacyAndServerClause/index.html#/login/one";
-
     }
 
     //渠道对应的编号

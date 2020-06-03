@@ -82,6 +82,4 @@ public class ApiBuild {
                 .client(builder.build()).build()
                 .create(service);
     }
-
-
 }

@@ -9,8 +9,11 @@ import com.haohao.zuhaohao.ui.module.user.model.RedemptionRecordBean;
 import java.util.List;
 
 import io.reactivex.Flowable;
+import okhttp3.RequestBody;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 /**
@@ -55,4 +58,7 @@ public interface ApiCommonService {
     @GET("anon/sms/sendCode")
     Flowable<BaseDataResponse<String>> sendCode(@Query("mobile") String mobile, @Query("ticket") String ticket, @Query("businessNo") String businessNo,@Query("businessId") Integer businessId);
 
+    //上传图片
+    @POST("anon/img/img?bucketPreType=1")
+    Flowable<BaseDataResponse<BaseData<String>>> upTemp(@Body RequestBody requestBody);
 }

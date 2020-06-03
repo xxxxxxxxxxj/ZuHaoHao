@@ -19,8 +19,9 @@ public class GameBean implements Serializable {
     public String img_url = "";//图片      (热门游戏，租号类型包含的游戏)
     public String goto_link; // 跳转的超连接    *
 
-    public GameBean(String game_id, String game_name) {
+    public GameBean(String game_id, String game_type, String game_name) {
         this.game_id = game_id;
+        this.game_type = game_type;
         this.game_name = game_name;
     }
 
