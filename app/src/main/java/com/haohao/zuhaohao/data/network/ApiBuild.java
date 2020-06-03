@@ -32,14 +32,30 @@ import retrofit2.converter.gson.GsonConverterFactory;
  **/
 public class ApiBuild {
 
-    private Application application;
+    private static Application application;
+    private static OkHttpClient.Builder builder;
 
     @Inject
     ApiBuild(Application application) {
         this.application = application;
     }
 
+    //设置cookie
+    public static void setCookie() {
+        ClearableCookieJar cookieJar =
+                new PersistentCookieJar(new SetCookieCache(), new SharedPrefsCookiePersistor(application));
+        builder.cookieJar(cookieJar);
+    }
+
+    //清除cookie
+    public static void clearCookie() {
+        ClearableCookieJar cookieJar = (ClearableCookieJar) builder.build().cookieJar();
+        cookieJar.clear();
+        builder.cookieJar(cookieJar);
+    }
+
     private OkHttpClient.Builder builder() {
+
         ClearableCookieJar cookieJar =
                 new PersistentCookieJar(new SetCookieCache(), new SharedPrefsCookiePersistor(application));
         OkHttpClient.Builder builder = new OkHttpClient.Builder()
@@ -74,7 +90,9 @@ public class ApiBuild {
      * 构建ApiInterface
      */
     public <T> T buildApiInterface(String apiBaseUrl, Class<T> service) {
-        OkHttpClient.Builder builder = builder();
+        if (builder == null) {
+            builder = builder();
+        }
         return new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

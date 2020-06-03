@@ -16,6 +16,7 @@ import com.haohao.zuhaohao.AppConfig;
 import com.haohao.zuhaohao.AppConstants;
 import com.haohao.zuhaohao.data.db.help.UserBeanHelp;
 import com.haohao.zuhaohao.data.db.table.UserTable;
+import com.haohao.zuhaohao.data.network.ApiBuild;
 import com.haohao.zuhaohao.data.network.rx.RxSchedulers;
 import com.haohao.zuhaohao.data.network.service.ApiCommonService;
 import com.haohao.zuhaohao.data.network.service.ApiPassportService;
@@ -249,6 +250,7 @@ public class LoginPresenter extends LoginContract.Presenter {
                 .subscribe(new ABaseSubscriber<String>() {
                     @Override
                     public void onSuccess(String str) {
+                        ApiBuild.setCookie();
                         userInfoIndex(str, phone, password);
                     }
 

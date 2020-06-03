@@ -8,6 +8,7 @@ import com.blankj.utilcode.util.AppUtils;
 import com.haohao.zuhaohao.AppApplication;
 import com.haohao.zuhaohao.AppConfig;
 import com.haohao.zuhaohao.data.db.help.UserBeanHelp;
+import com.haohao.zuhaohao.data.network.ApiBuild;
 import com.haohao.zuhaohao.ui.module.setting.contract.SettingContract;
 import com.tencent.bugly.beta.Beta;
 
@@ -48,6 +49,7 @@ public class SettingPresenter extends SettingContract.Presenter {
                 .setPositiveButton("确定", (dialog, which) -> {
                     userBeanHelp.cleanUserBean();
                     ((AppApplication) application).addAndDeleteJPushAlias();
+                    ApiBuild.clearCookie();
                     mView.finish();
                 }).show();
     }
