@@ -159,12 +159,12 @@ public class AppApplication extends MultiDexApplication implements HasActivityIn
         // 初始化httpdns
         HttpDnsService httpdns = HttpDns.getService(this, AppConfig.ACCOUNT_ID);
         ArrayList<String> hostList = new ArrayList<>(Arrays.asList(
-                "api8.xubei.com",
-                "user-server.xubei.com",
-                "passport-server.xubei.com",
-                "good-api.xubei.com",
-                "rest-api.xubei.com",
-                "pc-client.xubei.com"
+                "api.zuhaohao.com",
+                "user-server.zuhaohao.com",
+                "passport-server.zuhaohao.com",
+                "good-api.zuhaohao.com",
+                "rest-api.zuhaohao.com",
+                "pc-client.zuhaohao.com"
         ));
         httpdns.setPreResolveHosts(hostList);
         // 允许过期IP以实现懒加载策略

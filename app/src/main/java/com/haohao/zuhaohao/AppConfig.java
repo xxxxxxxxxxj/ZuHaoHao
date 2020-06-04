@@ -26,11 +26,11 @@ public class AppConfig {
     /**
      * 王者荣耀游戏ID
      */
-    public static final String GAME_ID = "302";
+    public static final String GAME_ID = "1494";
     /**
      * 王者荣耀游戏名字
      */
-    public static final String GAME_NAME = "穿越火线";
+    public static final String GAME_NAME = "绝地求生";
     /**
      * //1 端游  2手游
      */
@@ -62,7 +62,7 @@ public class AppConfig {
     /**
      * 使用的服务器地址1正式，2准生产，3测试
      */
-    public static final int BASE_HTTP_IP = 3;
+    public static final int BASE_HTTP_IP = 1;
 
     /**
      * buglyid
