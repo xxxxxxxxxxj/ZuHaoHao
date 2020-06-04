@@ -59,6 +59,9 @@ public class OrderCreatePresenter extends OrderCreateContract.Presenter {
         this.apiUserNewService = apiUserNewService;
         this.userBeanHelp = userBeanHelp;
         this.detailBean = detailBean;
+        if(Integer.parseInt(this.detailBean.shortLease)<=0){
+            this.detailBean.shortLease = "1";
+        }
     }
 
     //0-按小时租，1-按天租，2-按周租，3-通宵畅玩

@@ -87,6 +87,13 @@ public class RegisteredPresenter extends RegisteredContract.Presenter {
 
     //获取验证码
     public void onGetCode(String phone, String ticket) {
+        /*Map<String, String> fileParams = new HashMap<>();
+        fileParams.put("mobile", phone);
+        fileParams.put("ticket", ticket);
+        fileParams.put("businessNo", AppConfig.getChannelValue());
+        fileParams.put("businessId", "2");
+        RequestBody requestBody = FileUploadHelp.multipartRequestBody(fileParams, null);*/
+
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("mobile", phone);
@@ -98,8 +105,8 @@ public class RegisteredPresenter extends RegisteredContract.Presenter {
             ToastUtils.showShort("提交数据错误");
             return;
         }
-        RequestBody jsonBody = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), jsonObject.toString());
-        apiCommonService.sendCode(jsonBody)
+        RequestBody requestBody = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), jsonObject.toString());
+        apiCommonService.sendCode(requestBody)
                 .compose(RxSchedulers.io_main_business())
                 .doOnSubscribe(subscription -> mView.showLoading().setOnDismissListener(dialog -> subscription.cancel()))
                 .as(mView.bindLifecycle())
