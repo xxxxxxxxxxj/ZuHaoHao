@@ -120,7 +120,7 @@ public class AccSearchPresenter extends AccSearchContract.Presenter {
                 .subscribe(new ABaseSubscriber<BaseData<BaseDataCms<GameBean>>>() {
                     @Override
                     public void onSuccess(BaseData<BaseDataCms<GameBean>> accountList) {
-                        if (accountList != null && accountList.datas.size() > 0) {
+                        if (accountList != null && accountList.datas != null && accountList.datas.size() > 0) {
                             hotSearchList.clear();
                             for (int i = 0; i < accountList.datas.size(); i++) {
                                 BaseDataCms<GameBean> gameBeanBaseDataCms = accountList.datas.get(i);
