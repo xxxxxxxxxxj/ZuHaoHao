@@ -22,6 +22,7 @@
 
         <com.haohao.zuhaohao.ui.views.NoDataView
             android:id="@+id/ndv"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 

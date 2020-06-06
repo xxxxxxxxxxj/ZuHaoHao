@@ -23,7 +23,6 @@ import com.haohao.zuhaohao.ui.module.base.ABaseActivity;
 import com.haohao.zuhaohao.ui.module.order.contract.OrderDetailContract;
 import com.haohao.zuhaohao.ui.module.order.model.OutOrderBean;
 import com.haohao.zuhaohao.ui.module.order.presenter.OrderDetailPresenter;
-import com.haohao.zuhaohao.utlis.Tools;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.jakewharton.rxbinding2.support.v7.widget.RxToolbar;
@@ -109,6 +108,11 @@ public class OrderDetailActivity extends ABaseActivity<OrderDetailContract.Prese
     public void setOrderBean(OutOrderBean orderBean) {
         if (orderBean == null) {
             return;
+        }
+        if (orderBean.gameNo.equals("t-14npgct3r38pc")) {
+            orderBean.outGoodsDetail.isShow = "1";
+            orderBean.outGoodsDetail.gameAccount = "1234566";//游戏账号
+            orderBean.outGoodsDetail.gamePwd = "123456";//游戏密码
         }
         binding.tvStatus.setText(orderBean.getOrderStatusText());//订单状态
         //订单编号

@@ -5,6 +5,7 @@ import android.app.Application;
 import android.content.BroadcastReceiver;
 import android.os.Environment;
 import android.text.TextUtils;
+import android.util.Log;
 
 import androidx.multidex.MultiDexApplication;
 
@@ -26,11 +27,19 @@ import com.tencent.bugly.beta.Beta;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.commonsdk.UMConfigure;
 
+import java.security.SecureRandom;
+import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 
 import javax.inject.Inject;
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 
 import cn.jpush.android.api.JPushInterface;
 import dagger.android.AndroidInjector;
@@ -46,7 +55,7 @@ import dagger.android.HasBroadcastReceiverInjector;
 public class AppApplication extends MultiDexApplication implements HasActivityInjector, HasBroadcastReceiverInjector {
     private static Application sApplication;
 
-    public static Application getInstance(){
+    public static Application getInstance() {
         return sApplication;
     }
 
@@ -108,6 +117,60 @@ public class AppApplication extends MultiDexApplication implements HasActivityIn
         appUpData();
         //初始化极光推送
         initJPush();
+        //handleSSLHandshake();
+    }
+
+    public static void handleSSLHandshake() {
+
+        try {
+
+            TrustManager[] trustAllCerts = new TrustManager[]{new X509TrustManager() {
+
+                public X509Certificate[] getAcceptedIssuers() {
+
+                    return new X509Certificate[0];
+
+                }
+
+                @Override
+
+                public void checkClientTrusted(X509Certificate[] certs, String authType) {
+
+                }
+
+                @Override
+
+                public void checkServerTrusted(X509Certificate[] certs, String authType) {
+
+                }
+
+            }};
+
+            SSLContext sc = SSLContext.getInstance("TLS");
+
+            // trustAllCerts信任所有的证书
+
+            sc.init(null, trustAllCerts, new SecureRandom());
+
+            HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+
+            HttpsURLConnection.setDefaultHostnameVerifier(new HostnameVerifier() {
+
+                @Override
+
+                public boolean verify(String hostname, SSLSession session) {
+                    Log.e("TAG", "hostname = " + hostname);
+
+                    return true;
+
+                }
+
+            });
+
+        } catch (Exception ignored) {
+
+        }
+
     }
 
     //初始化极光

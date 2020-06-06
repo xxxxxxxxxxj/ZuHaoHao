@@ -1,12 +1,14 @@
 package com.haohao.zuhaohao.ui.module.main.adapter;
 
 import android.content.Context;
-import androidx.annotation.NonNull;
-import androidx.viewpager.widget.PagerAdapter;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
+import androidx.annotation.NonNull;
+import androidx.viewpager.widget.PagerAdapter;
 
 import com.blankj.utilcode.util.ObjectUtils;
 import com.haohao.zuhaohao.R;
@@ -74,6 +76,7 @@ public class HomeBannerAdapter extends PagerAdapter {
         if (ObjectUtils.isEmpty(tempLocation) || !tempLocation.contains("http")) {
             tempLocation = "http:" + tempLocation;
         }
+        Log.e("TAG","tempLocation = "+tempLocation);
         GlideApp.with(container.getContext()).load(tempLocation).into(itemBanner);
         itemBanner.setOnClickListener(v -> {
             if (mOnItemClickListener != null) {
