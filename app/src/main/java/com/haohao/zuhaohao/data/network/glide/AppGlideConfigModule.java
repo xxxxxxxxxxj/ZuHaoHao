@@ -11,13 +11,11 @@ import com.bumptech.glide.Registry;
 import com.bumptech.glide.annotation.GlideModule;
 import com.bumptech.glide.load.DecodeFormat;
 import com.bumptech.glide.load.engine.cache.InternalCacheDiskCacheFactory;
-import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.module.AppGlideModule;
 import com.bumptech.glide.request.RequestOptions;
 import com.haohao.zuhaohao.AppConfig;
 import com.haohao.zuhaohao.R;
 
-import java.io.InputStream;
 import java.security.cert.CertificateException;
 import java.util.concurrent.TimeUnit;
 
@@ -62,7 +60,7 @@ public class AppGlideConfigModule extends AppGlideModule {
         Log.e("TAG", "registerComponents = ");
         //设置请求方式为okhttp 并设置okhttpClient的证书及超时时间
         OkHttpUrlLoader.Factory factory = new OkHttpUrlLoader.Factory(UnsafeOkHttpClient.getUnsafeOkHttpClient());
-        registry.replace(GlideUrl.class, InputStream.class, factory);
+        //registry.replace(GlideUrl.class, InputStream.class, factory);
     }
 
     //自定义工具类修改OkHttpClient证书和超时时间

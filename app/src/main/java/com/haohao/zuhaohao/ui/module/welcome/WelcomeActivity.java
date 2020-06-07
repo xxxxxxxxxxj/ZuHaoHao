@@ -63,11 +63,11 @@ public class WelcomeActivity extends ABaseActivity<WelcomeActivityContract.Prese
     @Override
     public void jumpNextActivity() {
         //如果已经不是第一次则跳转主界面。如果是第一次，跳转引导页
-        if (presenter.isFirstOpenApp()) {
+        /*if (presenter.isFirstOpenApp()) {
             ARouter.getInstance().build(AppConstants.PagePath.WELCOME_GUIDEPAGES).navigation();
-        } else {
+        } else {*/
             ARouter.getInstance().build(AppConstants.PagePath.APP_MAIN).navigation();
-        }
+        //}
     }
 
     public void onViewClicked(View view) {

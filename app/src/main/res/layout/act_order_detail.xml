@@ -522,10 +522,9 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:drawableStart="@mipmap/act_order_d_ic_kf"
                         android:drawablePadding="10dp"
                         android:gravity="center"
-                        android:text="联系客服"
+                        android:text="立即上号"
                         android:textColor="#ffffff"
                         android:textSize="17sp" />
                 </LinearLayout>

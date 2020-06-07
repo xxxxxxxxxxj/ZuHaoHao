@@ -4,6 +4,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -18,6 +19,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.haohao.zuhaohao.AppConstants;
 import com.haohao.zuhaohao.R;
@@ -39,6 +41,7 @@ import com.haohao.zuhaohao.ui.views.DynamicLayout;
 import com.haohao.zuhaohao.ui.views.FixNPopWindow;
 import com.haohao.zuhaohao.ui.views.NoDataView;
 import com.haohao.zuhaohao.utlis.LinearLayoutManager2;
+import com.jakewharton.rxbinding2.support.v7.widget.RxToolbar;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
@@ -79,10 +82,18 @@ public class AccListActivity extends ABaseActivity<AccListContract.Presenter> im
 
     private AccAdapter adapter;
 
-
     @Override
     public void initCreate(@Nullable Bundle savedInstanceState) {
+        RxToolbar.itemClicks(binding.appbar.toolbar).as(bindLifecycle()).subscribe(menuItem ->
+                ARouter.getInstance().build(AppConstants.PagePath.ACC_SEARCH).navigation()
+        );
         presenter.start();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_search, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     public void initLayout(List<AccBean> list, NoDataView noDataView, boolean isFree) {

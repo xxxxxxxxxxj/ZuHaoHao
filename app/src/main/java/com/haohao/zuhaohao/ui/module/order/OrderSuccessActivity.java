@@ -5,10 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
+
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.blankj.utilcode.util.TimeUtils;
-import com.uuzuche.lib_zxing.activity.CodeUtils;
 import com.haohao.zuhaohao.AppConstants;
 import com.haohao.zuhaohao.R;
 import com.haohao.zuhaohao.databinding.ActOrderSuccessBinding;
@@ -16,14 +18,12 @@ import com.haohao.zuhaohao.ui.module.base.ABaseActivity;
 import com.haohao.zuhaohao.ui.module.order.contract.OrderSuccessContract;
 import com.haohao.zuhaohao.ui.module.order.model.OutOrderBean;
 import com.haohao.zuhaohao.ui.module.order.presenter.OrderSuccessPresenter;
+import com.uuzuche.lib_zxing.activity.CodeUtils;
 
 import java.math.BigDecimal;
 import java.util.Locale;
 
 import javax.inject.Inject;
-
-import androidx.annotation.Nullable;
-import androidx.databinding.DataBindingUtil;
 
 /**
  * 订单支付成功
@@ -91,6 +91,7 @@ public class OrderSuccessActivity extends ABaseActivity<OrderSuccessContract.Pre
 
     @Override
     public void doShowOrder(OutOrderBean orderBean) {
+        orderBean.outGoodsDetail.isPhone = "1";
         //判断是端游还是手游
         if ("0".equals(orderBean.outGoodsDetail.isPhone)) {
             //端游

@@ -65,8 +65,8 @@ public class OrderDetailActivity extends ABaseActivity<OrderDetailContract.Prese
         binding.appbar.toolbar.setTitle("订单详情");
         RxToolbar.itemClicks(binding.appbar.toolbar).as(bindLifecycle()).subscribe(menuItem ->
                 ARouter.getInstance().build(AppConstants.PagePath.COMM_AGENTWEB)
-                        .withString("title", "查看上号步骤")
-                        .withString("webUrl", AppConstants.AgreementAction.DEVICE_STEPS)
+                        .withString("title", "联系客服")
+                        .withString("webUrl", AppConfig.CSCHAT_URL)
                         .navigation()
         );
         binding.ndv.setOnClickListener(v -> presenter.start());
@@ -95,8 +95,8 @@ public class OrderDetailActivity extends ABaseActivity<OrderDetailContract.Prese
                 break;
             case R.id.ll_kf://联系客服
                 ARouter.getInstance().build(AppConstants.PagePath.COMM_AGENTWEB)
-                        .withString("title", "联系客服")
-                        .withString("webUrl", AppConfig.CSCHAT_URL)
+                        .withString("title", "查看上号步骤")
+                        .withString("webUrl", AppConstants.AgreementAction.DEVICE_STEPS)
                         .navigation();
                 break;
         }
