@@ -76,7 +76,7 @@ public class ResetPayPwPresenter extends ResetPayPwContract.Presenter {
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("mobile", userBeanHelp.getUserBean().getMobile());
-            jsonObject.put("ticket", ticket);
+            //jsonObject.put("ticket", ticket);
             jsonObject.put("businessNo", AppConfig.getChannelValue());
             jsonObject.put("businessId", 4);
         } catch (JSONException e) {

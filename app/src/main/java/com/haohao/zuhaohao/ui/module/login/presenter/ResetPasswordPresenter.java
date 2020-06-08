@@ -69,7 +69,7 @@ public class ResetPasswordPresenter extends ResetPasswordContract.Presenter {
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("mobile", phone);
-            jsonObject.put("ticket", ticket);
+            //jsonObject.put("ticket", ticket);
             jsonObject.put("businessNo", AppConfig.getChannelValue());
             jsonObject.put("businessId", 3);
         } catch (JSONException e) {

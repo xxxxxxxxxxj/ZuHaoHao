@@ -89,7 +89,7 @@ public class UpdateBindPhonePresenter extends UpdateBindPhoneContract.Presenter 
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("mobile", phone);
-            jsonObject.put("ticket", ticket);
+            //jsonObject.put("ticket", ticket);
             jsonObject.put("businessNo", AppConfig.getChannelValue());
             jsonObject.put("businessId", null);
         } catch (JSONException e) {

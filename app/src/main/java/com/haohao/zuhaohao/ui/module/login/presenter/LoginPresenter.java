@@ -345,7 +345,7 @@ public class LoginPresenter extends LoginContract.Presenter {
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("mobile", phone);
-            jsonObject.put("ticket", ticket);
+            //jsonObject.put("ticket", ticket);
             jsonObject.put("businessNo", AppConfig.getChannelValue());
             jsonObject.put("businessId", 1);
         } catch (JSONException e) {
