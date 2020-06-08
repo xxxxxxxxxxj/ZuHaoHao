@@ -22,9 +22,9 @@
 
         <com.haohao.zuhaohao.ui.views.NoDataView
             android:id="@+id/ndv"
-            android:visibility="gone"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:visibility="gone" />
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
@@ -55,8 +55,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#ffffff"
-                    android:orientation="vertical"
-                    android:visibility="gone">
+                    android:visibility="gone"
+                    android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -159,12 +159,12 @@
                     android:layout_height="wrap_content"
                     android:background="#ffffff"
                     android:gravity="center"
+                    android:visibility="gone"
                     android:orientation="horizontal"
                     android:paddingStart="15dp"
                     android:paddingTop="8dp"
                     android:paddingEnd="15dp"
-                    android:paddingBottom="8dp"
-                    android:visibility="gone">
+                    android:paddingBottom="8dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -199,6 +199,29 @@
                         android:textColor="@color/app_default_blue"
                         android:textSize="12sp" />
                 </LinearLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rlverificationcode"
+                    android:layout_width="fill_parent"
+                    android:onClick="@{activity::onViewClicked}"
+                    android:layout_height="wrap_content"
+                    android:background="#ffffedeb">
+
+                    <TextView
+                        android:id="@+id/tvverificationcode"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:drawableStart="@mipmap/iv_warning"
+                        android:drawablePadding="3.0dip"
+                        android:paddingStart="15.0dip"
+                        android:paddingTop="10.0dip"
+                        android:paddingEnd="15.0dip"
+                        android:paddingBottom="10.0dip"
+                        android:text="登录需要手机验证码怎么办？"
+                        android:textColor="#ffff5137"
+                        android:textSize="12.0sp" />
+                </RelativeLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"

@@ -5,25 +5,26 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
+
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.blankj.utilcode.util.RegexUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
-import com.jakewharton.rxbinding2.widget.RxTextView;
 import com.haohao.zuhaohao.AppConstants;
 import com.haohao.zuhaohao.R;
 import com.haohao.zuhaohao.databinding.ActUserUpdateBindphoneBinding;
 import com.haohao.zuhaohao.ui.module.base.ABaseActivity;
 import com.haohao.zuhaohao.ui.module.user.contract.UpdateBindPhoneContract;
 import com.haohao.zuhaohao.ui.module.user.presenter.UpdateBindPhonePresenter;
+import com.jakewharton.rxbinding2.widget.RxTextView;
 
 import java.util.Locale;
 
 import javax.inject.Inject;
 
-import androidx.annotation.Nullable;
-import androidx.databinding.DataBindingUtil;
 import io.reactivex.Observable;
 
 /**
@@ -103,7 +104,8 @@ public class UpdateBindPhoneActivity extends ABaseActivity<UpdateBindPhoneContra
                 ToastUtils.showShort("请输入正确的手机号");
                 return;
             }
-            presenter.onVerifyImageCode();
+            //gotoVerifyFullScreenActivity("");
+            presenter.onGetCode(phone, null);//暂时去掉滑块验证
         }
     }
 

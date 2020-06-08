@@ -97,7 +97,7 @@ public class RegisteredPresenter extends RegisteredContract.Presenter {
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("mobile", phone);
-            jsonObject.put("ticket", ticket);
+            //jsonObject.put("ticket", ticket);
             jsonObject.put("businessNo", AppConfig.getChannelValue());
             jsonObject.put("businessId", "2");
         } catch (JSONException e) {

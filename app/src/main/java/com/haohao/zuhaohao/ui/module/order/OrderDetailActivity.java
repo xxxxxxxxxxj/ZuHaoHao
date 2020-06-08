@@ -2,6 +2,7 @@ package com.haohao.zuhaohao.ui.module.order;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -49,6 +50,8 @@ public class OrderDetailActivity extends ABaseActivity<OrderDetailContract.Prese
     protected void initContextView() {
         binding = DataBindingUtil.setContentView(this, R.layout.act_order_detail);
         binding.setActivity(this);
+        binding.tvverificationcode.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG); //下划线
+        binding.tvverificationcode.getPaint().setAntiAlias(true);//抗锯齿
     }
 
     @Inject
@@ -58,7 +61,6 @@ public class OrderDetailActivity extends ABaseActivity<OrderDetailContract.Prese
     protected OrderDetailContract.Presenter getMVPPresenter() {
         return presenter;
     }
-
 
     @Override
     public void initCreate(@Nullable Bundle savedInstanceState) {
@@ -78,6 +80,12 @@ public class OrderDetailActivity extends ABaseActivity<OrderDetailContract.Prese
     //点击事件
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.rlverificationcode://
+                ARouter.getInstance().build(AppConstants.PagePath.COMM_AGENTWEB)
+                        .withString("title", "手游上号")
+                        .withString("webUrl", AppConstants.AgreementAction.DEVICE_STEPS)
+                        .navigation();
+                break;
             case R.id.tv_copy_login_code://复制订单到剪切板
                 presenter.doCopyOrderNo();
                 break;
@@ -108,12 +116,12 @@ public class OrderDetailActivity extends ABaseActivity<OrderDetailContract.Prese
     public void setOrderBean(OutOrderBean orderBean) {
         if (orderBean == null) {
             return;
-        }
+        }/*
         if (orderBean.gameNo.equals("t-14npgct3r38pc")) {
             orderBean.outGoodsDetail.isShow = "1";
             orderBean.outGoodsDetail.gameAccount = "1234566";//游戏账号
             orderBean.outGoodsDetail.gamePwd = "123456";//游戏密码
-        }
+        }*/
         binding.tvStatus.setText(orderBean.getOrderStatusText());//订单状态
         //订单编号
         binding.tvOrderNo.setText(orderBean.gameNo);

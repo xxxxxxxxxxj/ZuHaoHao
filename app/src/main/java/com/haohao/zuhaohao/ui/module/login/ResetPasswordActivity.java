@@ -86,7 +86,8 @@ public class ResetPasswordActivity extends ABaseActivity<ResetPasswordContract.P
                     ToastUtils.showShort("请输入正确的手机号");
                     return;
                 }
-                gotoVerifyFullScreenActivity("");
+                //gotoVerifyFullScreenActivity("");
+                presenter.onGetCode(phone, null);//暂时去掉滑块验证
                 break;
             case R.id.btn_ok:
                 //提交网络

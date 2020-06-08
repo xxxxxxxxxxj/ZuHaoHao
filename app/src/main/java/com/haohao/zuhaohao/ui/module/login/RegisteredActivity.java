@@ -119,7 +119,8 @@ public class RegisteredActivity extends ABaseActivity<RegisteredContract.Present
                 ToastUtils.showShort("请输入正确的手机号");
                 return;
             }
-            gotoVerifyFullScreenActivity("");
+            //gotoVerifyFullScreenActivity("");
+            presenter.onGetCode(phone, null);//暂时去掉滑块验证
         }
     }
 

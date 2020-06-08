@@ -67,6 +67,7 @@ public class AccSResultPresenter extends AccSResultContract.Presenter {
         HashMap<String, Object> map = new HashMap<>();
         map.put("searchText", searchStr);
         map.put("pageSize", AppConfig.PAGE_SIZE);
+        map.put("gameId", AppConfig.GAME_ID);
         map.put("pageIndex", tempPageNo);
         map.put("businessNo", AppConfig.getChannelValue());
         api8Service.findGoodsList(map)

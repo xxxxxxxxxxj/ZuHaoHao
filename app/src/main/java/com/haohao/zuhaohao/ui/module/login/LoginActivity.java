@@ -127,7 +127,8 @@ public class LoginActivity extends ABaseActivity<LoginContract.Presenter> implem
                 ToastUtils.showShort("请输入正确的手机号");
                 return;
             }
-            presenter.onVerifyImageCode(1);
+            //gotoVerifyFullScreenActivity("");
+            presenter.onGetCode(phone, null);//暂时去掉滑块验证
         }
     }
 
