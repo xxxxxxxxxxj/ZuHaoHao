@@ -42,7 +42,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
                         android:lineSpacingExtra="8dp"
-                        android:text="号号网希望您在享受卖家账号带给您游戏乐趣的同时能够知晓并遵守以下内容"
+                        android:text="租号号希望您在享受卖家账号带给您游戏乐趣的同时能够知晓并遵守以下内容"
                         android:textColor="#c1c1c1"
                         android:textSize="13sp" />
                 </LinearLayout>
