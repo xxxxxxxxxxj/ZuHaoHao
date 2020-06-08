@@ -436,6 +436,7 @@
                 android:layout_weight="1"
                 android:background="#ffffff"
                 android:gravity="center"
+                android:visibility="gone"
                 android:onClick="@{activity::onViewClicked}"
                 android:orientation="vertical">
 
