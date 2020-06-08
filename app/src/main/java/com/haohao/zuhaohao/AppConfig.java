@@ -61,7 +61,7 @@ public class AppConfig {
     /**
      * 使用的服务器地址1正式，2准生产，3测试
      */
-    public static final int BASE_HTTP_IP = 1;
+    public static final int BASE_HTTP_IP = 3;
 
     /**
      * buglyid
