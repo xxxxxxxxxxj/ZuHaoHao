@@ -25,11 +25,11 @@ public class AppConfig {
     /**
      * 王者荣耀游戏ID
      */
-    public static final String GAME_ID = "1494";
+    public static final String GAME_ID = "592";
     /**
      * 王者荣耀游戏名字
      */
-    public static final String GAME_NAME = "绝地求生";
+    public static final String GAME_NAME = "QQ飞车";
     /**
      * //1 端游  2手游
      */
@@ -38,7 +38,7 @@ public class AppConfig {
     /**
      * 本地数据库名称
      */
-    public static final String DB_NAME = "xbshop-db";
+    public static final String DB_NAME = "zuhaohao-db";
 
     /**
      * 网络超时
@@ -52,7 +52,7 @@ public class AppConfig {
      * 图片保存文件夹名称
      * 为相册文件夹{@link android.os.Environment#DIRECTORY_DCIM}中的子文件夹名
      */
-    public static final String SAVE_IMAGE_FOLDERS_NAME = "xbshop";
+    public static final String SAVE_IMAGE_FOLDERS_NAME = "zuhaohao";
     /**
      * 是否在debug模式
      */
@@ -76,11 +76,11 @@ public class AppConfig {
     /**
      * 推送的标签
      */
-    static final String JPUSH_TAG_LOGIN = "xb_user";
+    static final String JPUSH_TAG_LOGIN = "zuhaohao_user";
     /**
      * 别名前缀
      */
-    static final String JPUSH_ALIAS = "xb_user_";
+    static final String JPUSH_ALIAS = "zuhaohao_user_";
 
 
     //根据值活动对应的编号

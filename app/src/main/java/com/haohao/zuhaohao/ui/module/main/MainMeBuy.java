@@ -158,6 +158,7 @@ public class MainMeBuy extends ABaseFragment<MainMeBuySellContract.Presenter> im
                 break;
             case R.id.tv_tool2://我的收藏
                 ARouter.getInstance().build(AppConstants.PagePath.ACC_SC).navigation();
+                //OpenAccessibilitySettingHelper.jumpToSettingPage(getActivity());
                 break;
             case R.id.tv_tool3://帮助中心
                 ARouter.getInstance().build(AppConstants.PagePath.SETTING_HELPCENTER).navigation();
